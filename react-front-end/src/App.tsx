@@ -16,10 +16,11 @@ function App() {
   useEffect(() => {
     // fetch trips
     axios
-      .get("http://localhost:8080/api/todos")
+      .get("http://localhost:8080/api/trips")
       .then((response) => {
-        const todos = response.data.todos;
+        const trips = response.data.trips;
         setTrips(trips);
+        // console.log(trips);
       })
       .catch((err) => console.log("err fetching data!!!!", err.message));
   }, []);

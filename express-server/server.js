@@ -24,8 +24,8 @@ App.use(BodyParser.urlencoded({
 App.use(BodyParser.json());
 App.use(Express.static('public'));
 
-const todoRoutes = require("./routes/todos");
-App.use("/api/todos", todoRoutes);
+const tripRoutes = require("./routes/trips");
+App.use("/api/trips", tripRoutes);
 
 // Single-page application
 App.get('/api/todos/test', (req, res) => res.json({
