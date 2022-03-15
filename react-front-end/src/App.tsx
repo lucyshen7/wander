@@ -71,7 +71,7 @@ function App() {
         }}
       >
         <div className="todo-box">
-          <h1 className="title">My To-Do List</h1>
+          <h1 className="title">My Trips</h1>
           <TodoList todos={todos} toggleTodo={toggleTodo} />
           <AddTodoForm addTodo={addTodo} />
         </div>
