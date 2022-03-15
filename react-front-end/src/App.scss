@@ -1,0 +1,44 @@
+#root {
+  background-color: #b4a4bb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+form.add-todo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  column-gap: 5px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-right: 15px;
+  align-items: center;
+  height: 80px;
+  background-color:#b5e0c3;
+  column-gap: 10px;
+}
+
+.todo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.title {
+  font-family: "Bungee Shade", cursive;
+  font-size: 38px;
+}
+
+.todo-items,
+.nav {
+  font-family: "Baloo 2", cursive;
+  font-size: 18px;
+}
