@@ -5,6 +5,7 @@ import { Navbar } from "./Navbar";
 import { Container } from "@mui/material";
 import axios from "axios";
 import "./App.scss";
+import { ViewTrip } from "./ViewTrip";
 // import { TripListItem } from "./TripListItem";
 
 const initialTrips: Trip[] = [];
@@ -13,6 +14,8 @@ const fakeUser = { name: "Alice" }; // to be replaced
 
 function App() {
   const [trips, setTrips] = useState(initialTrips);
+  const [visible, setVisible] = useState(false);
+  const [selectedTrip, setSelectedTrip] = useState(0);
 
   useEffect(() => {
     // fetch trips
@@ -24,6 +27,11 @@ function App() {
       })
       .catch((err) => console.log("err fetching data!!!!", err.message));
   }, []);
+
+  const viewTrip = (id: Trip["id"]) => {
+    setSelectedTrip(id);
+    setVisible(true);
+  };
 
   // const toggleTodo = (selectedTodo: Todo) => {
   //   axios
@@ -59,23 +67,13 @@ function App() {
   return (
     <>
       <Navbar user={fakeUser} />
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          margin: "auto",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "#b4a4bb",
-          overflow: "auto",
-        }}
-      >
+      <Container className="main-container">
         <div className="todo-box">
           <h1 className="title">Upcoming Trips</h1>
-          <TripList trips={trips} />
+          <TripList trips={trips} viewTrip={viewTrip} />
           {/* <AddTodoForm addTodo={addTodo} /> */}
         </div>
+        {visible && <ViewTrip trip={selectedTrip} />}
       </Container>
     </>
   );

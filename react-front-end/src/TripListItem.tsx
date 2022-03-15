@@ -4,25 +4,27 @@ import "./App.scss";
 import { Button } from "@mui/material";
 
 interface Props {
-  key: Trip["id"];
+  id: Trip["id"];
   city: Trip["city"];
   province: Trip["province"];
   country: Trip["country"];
   start_date: Trip["start_date"];
   end_date: Trip["end_date"];
   photo: Trip["photo"];
+  viewTrip: ViewTrip;
 }
 
 // the TripListItem component will take a triplist item as a prop.
 
 export const TripListItem: React.FC<Props> = ({
-  key,
+  id,
   city,
   province,
   country,
   start_date,
   end_date,
   photo,
+  viewTrip,
 }) => {
   const months = [
     "January",
@@ -58,7 +60,14 @@ export const TripListItem: React.FC<Props> = ({
         <span>
           {month1}, {day1} - {month2}, {day2}
         </span>
-        <Button variant="contained">View</Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            viewTrip(id);
+          }}
+        >
+          View
+        </Button>
       </div>
     </ListItem>
   );
