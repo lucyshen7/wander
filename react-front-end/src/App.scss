@@ -30,6 +30,7 @@ form.add-todo {
   flex-direction: column;
   align-items: center;
   margin: auto;
+  width: 70%;
 }
 
 .title {
@@ -41,4 +42,12 @@ form.add-todo {
 .nav {
   font-family: "Baloo 2", cursive;
   font-size: 18px;
+}
+
+.trip-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  width: 95%;
 }

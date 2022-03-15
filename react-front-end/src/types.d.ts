@@ -7,6 +7,8 @@ interface Trip {
   city: text;
   province: text;
   country: text;
+  start_date: date;
+  end_date: date;
 }
 
 interface User {

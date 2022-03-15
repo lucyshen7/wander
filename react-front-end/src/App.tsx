@@ -21,7 +21,6 @@ function App() {
       .then((response) => {
         const trips = response.data.trips;
         setTrips(trips);
-        // console.log(trips);
       })
       .catch((err) => console.log("err fetching data!!!!", err.message));
   }, []);

@@ -24,13 +24,9 @@ App.use(BodyParser.urlencoded({
 App.use(BodyParser.json());
 App.use(Express.static('public'));
 
+// Trip routes
 const tripRoutes = require("./routes/trips");
 App.use("/api/trips", tripRoutes);
-
-// Single-page application
-App.get('/api/todos/test', (req, res) => res.json({
-  message: "Seems to work!",
-}));
 
 App.listen(PORT, () => {
   // eslint-disable-next-line no-console

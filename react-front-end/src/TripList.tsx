@@ -11,7 +11,7 @@ export const TripList: React.FC<Props> = ({ trips }) => {
     <List
       sx={{
         width: "100%",
-        maxWidth: 360,
+        maxWidth: 700,
         height: "50",
         display: "flex",
         flexDirection: "column",
@@ -22,7 +22,14 @@ export const TripList: React.FC<Props> = ({ trips }) => {
       }}
     >
       {trips.map((trip) => (
-        <TripListItem key={trip.id} city={trip.city} province={trip.province} country={trip.country} />
+        <TripListItem
+          key={trip.id}
+          city={trip.city}
+          province={trip.province}
+          country={trip.country}
+          start_date={trip.start_date}
+          end_date={trip.end_date}
+        />
       ))}
     </List>
   );
