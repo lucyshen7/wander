@@ -29,6 +29,7 @@ export const TripList: React.FC<Props> = ({ trips }) => {
           country={trip.country}
           start_date={trip.start_date}
           end_date={trip.end_date}
+          photo={trip.photo}
         />
       ))}
     </List>

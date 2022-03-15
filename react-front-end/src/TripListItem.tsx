@@ -9,6 +9,7 @@ interface Props {
   country: Trip["country"];
   start_date: Trip["start_date"];
   end_date: Trip["end_date"];
+  photo: Trip["photo"];
 }
 
 // the TripListItem component will take a triplist item as a prop.
@@ -20,6 +21,7 @@ export const TripListItem: React.FC<Props> = ({
   country,
   start_date,
   end_date,
+  photo,
 }) => {
   const months = [
     "January",
@@ -48,6 +50,7 @@ export const TripListItem: React.FC<Props> = ({
   return (
     <ListItem sx={{ bgcolor: "#eaeaea" }}>
       <div className="trip-list">
+        <img src={photo} alt="trip_photo" className="trip-photo"/>
         <span>
           {city}, {province}, {country}
         </span>

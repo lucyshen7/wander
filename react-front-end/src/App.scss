@@ -48,6 +48,12 @@ form.add-todo {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin: auto;
   width: 95%;
+}
+
+.trip-photo {
+  width: 150px;
+  height: auto;
 }

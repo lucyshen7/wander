@@ -2,9 +2,9 @@ INSERT INTO todos (text, complete)
 VALUES ('Walk the dog', false),
 ('Write app', false);
 
-INSERT INTO destinations (city, province, country) 
-VALUES ('Miami', 'Florida', 'USA'),
-('Shinjuku', 'Tokyo', 'Japan');
+INSERT INTO destinations (city, province, country, photo) 
+VALUES ('Miami', 'Florida', 'USA', 'https://www.planetware.com/wpimages/2020/06/florida-miami-best-time-to-visit-best-month-to-visit.jpg'),
+('Shinjuku', 'Tokyo', 'Japan', 'https://rimage.gnst.jp/livejapan.com/public/article/detail/a/00/02/a0002533/img/basic/a0002533_main.jpg?20210122155600&q=80&rw=750&rh=536');
 
 INSERT INTO trips (destination_id, hotel_name, hotel_address, start_date, end_date, created_at)
 VALUES (1, 'W Miami', '485 Brickell Ave, Miami, FL 33131, United States', '03-20-2022', '03-27-2022', '03-05-2022'),

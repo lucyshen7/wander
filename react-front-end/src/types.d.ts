@@ -9,6 +9,7 @@ interface Trip {
   country: text;
   start_date: date;
   end_date: date;
+  photo: text;
 }
 
 interface User {
