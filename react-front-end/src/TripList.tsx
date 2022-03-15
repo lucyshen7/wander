@@ -6,7 +6,7 @@ interface Props {
   trips: Trip[];
 }
 
-export const TodoList: React.FC<Props> = ({ trips }) => {
+export const TripList: React.FC<Props> = ({ trips }) => {
   return (
     <List
       sx={{
@@ -22,8 +22,7 @@ export const TodoList: React.FC<Props> = ({ trips }) => {
       }}
     >
       {trips.map((trip) => (
-        <TripListItem key={trip.id} hotel={trip.hotel_name} 
-        />
+        <TripListItem key={trip.id} city={trip.city} province={trip.province} country={trip.country} />
       ))}
     </List>
   );

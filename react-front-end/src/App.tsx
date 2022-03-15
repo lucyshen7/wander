@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-// import { TodoList } from "./TripList";
+import { TripList } from "./TripList";
 // import { AddTodoForm } from "./AddTodoForm";
 import { Navbar } from "./Navbar";
 import { Container } from "@mui/material";
 import axios from "axios";
 import "./App.scss";
+// import { TripListItem } from "./TripListItem";
 
 const initialTrips: Trip[] = [];
 
@@ -73,7 +74,7 @@ function App() {
       >
         <div className="todo-box">
           <h1 className="title">My Trips</h1>
-          {/* <TodoList todos={todos} toggleTodo={toggleTodo} /> */}
+          <TripList trips={trips} />
           {/* <AddTodoForm addTodo={addTodo} /> */}
         </div>
       </Container>

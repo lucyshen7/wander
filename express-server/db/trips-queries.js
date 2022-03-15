@@ -1,7 +1,7 @@
 const db = require('./index');
 
 const getTrips = () => {
-  return db.query(`SELECT * FROM trips;`)
+  return db.query(`SELECT * FROM trips JOIN destinations ON trips.destination_id=destinations.id ORDER BY start_date ASC;`)
     .then((res) => {
       return res.rows;
     })

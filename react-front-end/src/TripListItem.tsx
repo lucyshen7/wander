@@ -5,12 +5,14 @@ import "./App.scss";
 
 interface Props {
   key: Trip['id'];
-  hotel: Trip['hotel_name'];
+  city: Trip['city'];
+  province: Trip['province'];
+  country: Trip['country'];
 }
 
 // the TodoListItem component will take a todo item as a prop. The todo item has a text & boolean property.
 
-export const TripListItem: React.FC<Props> = ({ key, hotel }) => {
+export const TripListItem: React.FC<Props> = ({ key, city, province, country }) => {
   // Declare TodoListItem as a functional component (React.FC) and pass Props as a generic
   return (
     <ListItem sx={{ bgcolor: "#eaeaea" }}>
@@ -29,7 +31,7 @@ export const TripListItem: React.FC<Props> = ({ key, hotel }) => {
         />{" "}
         {todo.text}
       </label> */}
-      { hotel }
+      {city}, {province}, {country}
     </ListItem>
   );
 };
