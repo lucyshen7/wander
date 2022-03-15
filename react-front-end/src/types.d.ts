@@ -1,9 +1,9 @@
 // Type Declaration File (global to the project)
 
-interface Todo {
+interface Trip {
   id: number;
-  text: string;
-  complete: boolean;
+  destination_id: number;
+  hotel_name: text;
 }
 
 interface User {

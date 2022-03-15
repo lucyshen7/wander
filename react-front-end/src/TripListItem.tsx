@@ -1,20 +1,20 @@
 import React from "react";
 import ListItem from "@mui/material/ListItem";
-import Checkbox from "@mui/material/Checkbox";
+// import Checkbox from "@mui/material/Checkbox";
 import "./App.scss";
 
 interface Props {
-  todo: Todo;
-  toggleTodo: ToggleTodo;
+  key: Trip['id'];
+  hotel: Trip['hotel_name'];
 }
 
 // the TodoListItem component will take a todo item as a prop. The todo item has a text & boolean property.
 
-export const TodoListItem: React.FC<Props> = ({ todo, toggleTodo }) => {
+export const TripListItem: React.FC<Props> = ({ key, hotel }) => {
   // Declare TodoListItem as a functional component (React.FC) and pass Props as a generic
   return (
     <ListItem sx={{ bgcolor: "#eaeaea" }}>
-      <label
+      {/* <label
         style={{ textDecoration: todo.complete ? "line-through" : undefined }}
         className="todo-items"
       >
@@ -28,7 +28,8 @@ export const TodoListItem: React.FC<Props> = ({ todo, toggleTodo }) => {
           inputProps={{ "aria-labelledby": todo.text }}
         />{" "}
         {todo.text}
-      </label>
+      </label> */}
+      { hotel }
     </ListItem>
   );
 };

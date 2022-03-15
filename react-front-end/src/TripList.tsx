@@ -1,13 +1,12 @@
 import React from "react";
-import { TodoListItem } from "./TodoListItem";
+import { TripListItem } from "./TripListItem";
 import List from "@mui/material/List";
 
 interface Props {
-  todos: Todo[];
-  toggleTodo: ToggleTodo;
+  trips: Trip[];
 }
 
-export const TodoList: React.FC<Props> = ({ todos, toggleTodo }) => {
+export const TodoList: React.FC<Props> = ({ trips }) => {
   return (
     <List
       sx={{
@@ -22,8 +21,9 @@ export const TodoList: React.FC<Props> = ({ todos, toggleTodo }) => {
         overflow: "auto",
       }}
     >
-      {todos.map((todo) => (
-        <TodoListItem key={todo.text} todo={todo} toggleTodo={toggleTodo} />
+      {trips.map((trip) => (
+        <TripListItem key={trip.id} hotel={trip.hotel_name} 
+        />
       ))}
     </List>
   );

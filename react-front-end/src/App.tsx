@@ -1,59 +1,59 @@
 import { useEffect, useState } from "react";
-import { TodoList } from "./TodoList";
-import { AddTodoForm } from "./AddTodoForm";
+// import { TodoList } from "./TripList";
+// import { AddTodoForm } from "./AddTodoForm";
 import { Navbar } from "./Navbar";
 import { Container } from "@mui/material";
 import axios from "axios";
 import "./App.scss";
 
-const initialTodos: Todo[] = [];
+const initialTrips: Trip[] = [];
 
 const fakeUser = { name: "Alice" }; // to be replaced
 
 function App() {
-  const [todos, setTodos] = useState(initialTodos);
+  const [trips, setTrips] = useState(initialTrips);
 
   useEffect(() => {
-    // fetch todos
+    // fetch trips
     axios
-      .get("http://localhost:8080/api/trips")
+      .get("http://localhost:8080/api/todos")
       .then((response) => {
         const todos = response.data.todos;
-        setTodos(todos);
+        setTrips(trips);
       })
       .catch((err) => console.log("err fetching data!!!!", err.message));
   }, []);
 
-  const toggleTodo = (selectedTodo: Todo) => {
-    axios
-      .post("http://localhost:8080/api/todos", {
-        id: selectedTodo.id,
-        complete: !selectedTodo.complete,
-      })
-      .then((res) => {
-        const newTodos = todos.map((todo) => {
-          if (todo === selectedTodo) {
-            return {
-              ...todo,
-              complete: !todo.complete,
-            };
-          }
-          return todo;
-        });
-        setTodos(newTodos);
-      });
-  };
+  // const toggleTodo = (selectedTodo: Todo) => {
+  //   axios
+  //     .post("http://localhost:8080/api/todos", {
+  //       id: selectedTodo.id,
+  //       complete: !selectedTodo.complete,
+  //     })
+  //     .then((res) => {
+  //       const newTodos = todos.map((todo) => {
+  //         if (todo === selectedTodo) {
+  //           return {
+  //             ...todo,
+  //             complete: !todo.complete,
+  //           };
+  //         }
+  //         return todo;
+  //       });
+  //       setTodos(newTodos);
+  //     });
+  // };
 
-  const addTodo: AddTodo = (text: string) => {
-    axios
-      .post("http://localhost:8080/api/todos/add", {
-        text: text,
-      })
-      .then((res) => {
-        const newTodo = res.data.response[0];
-        setTodos([...todos, newTodo]);
-      });
-  };
+  // const addTodo: AddTodo = (text: string) => {
+  //   axios
+  //     .post("http://localhost:8080/api/todos/add", {
+  //       text: text,
+  //     })
+  //     .then((res) => {
+  //       const newTodo = res.data.response[0];
+  //       setTodos([...todos, newTodo]);
+  //     });
+  // };
 
   return (
     <>
@@ -72,8 +72,8 @@ function App() {
       >
         <div className="todo-box">
           <h1 className="title">My Trips</h1>
-          <TodoList todos={todos} toggleTodo={toggleTodo} />
-          <AddTodoForm addTodo={addTodo} />
+          {/* <TodoList todos={todos} toggleTodo={toggleTodo} /> */}
+          {/* <AddTodoForm addTodo={addTodo} /> */}
         </div>
       </Container>
     </>
