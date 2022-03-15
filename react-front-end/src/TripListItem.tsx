@@ -1,6 +1,7 @@
 import React from "react";
 import ListItem from "@mui/material/ListItem";
 import "./App.scss";
+import { Button } from "@mui/material";
 
 interface Props {
   key: Trip["id"];
@@ -50,13 +51,14 @@ export const TripListItem: React.FC<Props> = ({
   return (
     <ListItem sx={{ bgcolor: "#eaeaea" }}>
       <div className="trip-list">
-        <img src={photo} alt="trip_photo" className="trip-photo"/>
+        <img src={photo} alt="trip_photo" className="trip-photo" />
         <span>
           {city}, {province}, {country}
         </span>
         <span>
-          {month1}, {day1} to {month2}, {day2}
+          {month1}, {day1} - {month2}, {day2}
         </span>
+        <Button variant="contained">View</Button>
       </div>
     </ListItem>
   );

@@ -9,12 +9,13 @@ interface Props {
 export const Navbar: React.FC<Props> = ({ user }) => {
   return (
     <div className="nav">
-      <div>
+      <span className="logo">Wander</span>
+      <div className="profile">
         <span>Logged in as {user.name}!</span>
+        <Button variant="contained" color="info">
+          Logout
+        </Button>
       </div>
-      <Button variant="contained" color="info">
-        Logout
-      </Button>
     </div>
   );
 };

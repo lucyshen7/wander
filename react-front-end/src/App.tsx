@@ -72,7 +72,7 @@ function App() {
         }}
       >
         <div className="todo-box">
-          <h1 className="title">My Trips</h1>
+          <h1 className="title">Upcoming Trips</h1>
           <TripList trips={trips} />
           {/* <AddTodoForm addTodo={addTodo} /> */}
         </div>
