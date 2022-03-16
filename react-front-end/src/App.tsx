@@ -35,12 +35,13 @@ function App() {
       .then((response) => {
         const activities = response.data.activities;
         setActivities(activities);
-        console.log('activities', activities);
+        console.log("activities", activities);
+
+        setSelectedTrip(id);
+        setVisible(true);
+        
       })
       .catch((err) => console.log("err fetching data!!!!", err.message));
-
-    setSelectedTrip(id);
-    setVisible(true);
   };
 
   const closeView = () => {
@@ -87,7 +88,13 @@ function App() {
           <TripList trips={trips} viewTrip={viewTrip} />
           {/* <AddTodoForm addTodo={addTodo} /> */}
         </div>
-        {visible && <ViewTrip trip={selectedTrip} closeView={closeView} />}
+        {visible && (
+          <ViewTrip
+            trip={selectedTrip}
+            closeView={closeView}
+            activities={activities}
+          />
+        )}
       </Container>
     </>
   );

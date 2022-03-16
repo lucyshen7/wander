@@ -32,7 +32,7 @@ const addTrip = (text) => {
 };
 
 const getActivities = (id) => {
-  return db.query(`SELECT * FROM activities a LEFT JOIN trips t ON t.id = a.trip_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
+  return db.query(`SELECT * FROM activities a LEFT JOIN trips t ON t.id = a.trip_id LEFT JOIN destinations d ON d.id = t.destination_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
     .then((res) => {
       return res.rows;
     })

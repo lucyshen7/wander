@@ -12,6 +12,18 @@ interface Trip {
   photo: text;
 }
 
+interface Activity {
+  id: number;
+  trip_id: number;
+  activity_name: text;
+  activity_address: text;
+  date: date;
+  type: text;
+  cost: number;
+  city: text;
+  country: text;
+}
+
 interface User {
   name: string;
 }
