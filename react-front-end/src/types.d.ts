@@ -22,6 +22,8 @@ interface Activity {
   cost: number;
   city: text;
   country: text;
+  hotel_name: text;
+  hotel_address: text;
 }
 
 interface User {
