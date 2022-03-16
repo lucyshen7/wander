@@ -16,6 +16,7 @@ function App() {
   const [trips, setTrips] = useState(initialTrips);
   const [visible, setVisible] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(0);
+  const [activities, setActivities] = useState([]);
 
   useEffect(() => {
     // fetch trips
@@ -29,8 +30,21 @@ function App() {
   }, []);
 
   const viewTrip = (id: Trip["id"]) => {
+    axios
+      .post("http://localhost:8080/api/trips/activities", { id: id })
+      .then((response) => {
+        const activities = response.data.activities;
+        setActivities(activities);
+        console.log('activities', activities);
+      })
+      .catch((err) => console.log("err fetching data!!!!", err.message));
+
     setSelectedTrip(id);
     setVisible(true);
+  };
+
+  const closeView = () => {
+    setVisible(false);
   };
 
   // const toggleTodo = (selectedTodo: Todo) => {
@@ -73,7 +87,7 @@ function App() {
           <TripList trips={trips} viewTrip={viewTrip} />
           {/* <AddTodoForm addTodo={addTodo} /> */}
         </div>
-        {visible && <ViewTrip trip={selectedTrip} />}
+        {visible && <ViewTrip trip={selectedTrip} closeView={closeView} />}
       </Container>
     </>
   );

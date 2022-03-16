@@ -18,5 +18,7 @@ interface User {
 
 type ViewTrip = (selectedTrip: Trip["id"]) => void;
 
+type CloseView = () => void;
+
 // Declare the type AddTodo: each new todo will start off incomplete, so we just need a text prop to create one.
 type AddTodo = (text: string) => void;

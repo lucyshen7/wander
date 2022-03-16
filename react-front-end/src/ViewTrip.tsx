@@ -4,13 +4,20 @@ import "./App.scss";
 
 interface Props {
   trip: Trip["id"];
+  closeView: CloseView;
 }
 
-export const ViewTrip: React.FC<Props> = ({ trip }) => {
+export const ViewTrip: React.FC<Props> = ({ trip, closeView }) => {
   return (
     <div className="view-trip">
       <div className="close">
-        <Button variant="contained" color="error">
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => {
+            closeView();
+          }}
+        >
           Close
         </Button>
       </div>
