@@ -41,9 +41,21 @@ const getActivities = (id) => {
     });
 };
 
+const addActivity = (tripId, date, activityName, activityAddress, type, cost) => {
+  return db.query(`INSERT INTO activities (trip_id, date, activity_name, activity_address, type, cost) VALUES (${tripId}, ${date}, $1, $2, ${type}, $3) RETURNING *;`, [activityName, activityAddress, cost])
+    .then((res) => {
+      console.log('activity post made to db!', res);
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log('DB error adding new activity: ' + err.message);
+    });
+};
+
 module.exports = {
   updateTrip,
   getTrips,
   addTrip,
   getActivities,
+  addActivity,
 };

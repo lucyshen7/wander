@@ -36,8 +36,6 @@ function App() {
       .then((response) => {
         const activities = response.data.activities;
         setActivities(activities);
-        console.log("activities", activities);
-
         setSelectedTrip(id);
         setVisible(true);
       })
@@ -48,27 +46,7 @@ function App() {
     setVisible(false);
   };
 
-  // const toggleTodo = (selectedTodo: Todo) => {
-  //   axios
-  //     .post("http://localhost:8080/api/todos", {
-  //       id: selectedTodo.id,
-  //       complete: !selectedTodo.complete,
-  //     })
-  //     .then((res) => {
-  //       const newTodos = todos.map((todo) => {
-  //         if (todo === selectedTodo) {
-  //           return {
-  //             ...todo,
-  //             complete: !todo.complete,
-  //           };
-  //         }
-  //         return todo;
-  //       });
-  //       setTodos(newTodos);
-  //     });
-  // };
-
-  const addActivity: AddActivity = (
+  const addActivity = (
     tripId: number,
     date: string,
     activityName: string,
@@ -77,7 +55,7 @@ function App() {
     cost: number
   ) => {
     axios
-      .post("http://localhost:8080/api/trips/add", {
+      .post("http://localhost:8080/api/trips/activities/add", {
         tripId: tripId,
         date: date,
         activityName: activityName,
@@ -100,19 +78,15 @@ function App() {
         <div className="todo-box">
           <h1 className="title">Upcoming Trips</h1>
           <TripList trips={trips} viewTrip={viewTrip} />
-          {/* <AddTodoForm addTodo={addTodo} /> */}
         </div>
         {visible && (
           <ViewTrip
             trip={selectedTrip}
             closeView={closeView}
             activities={activities}
-            // setForm={setForm}
+            addActivity={addActivity}
           />
         )}
-        {/* {form && (
-          <AddActivityForm tripId={selectedTrip} addActivity={addActivity} />
-        )} */}
       </Container>
     </>
   );

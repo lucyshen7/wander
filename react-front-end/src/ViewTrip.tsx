@@ -10,30 +10,41 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+import Box from '@mui/material/Box';
+import MenuItem from "@mui/material/MenuItem";
+import { FormControl, InputLabel } from "@mui/material";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 interface Props {
   trip: Trip["id"];
   closeView: CloseView;
   activities: Activity[];
-  // setForm: Function;
+  addActivity: AddActivity;
 }
-
-const defaultValues = {
-  // an obj initialized with properties for each form value
-  tripId: 0,
-  date: "",
-  activityName: "",
-  activityAddress: "",
-  type: "",
-  cost: 0,
-};
 
 export const ViewTrip: React.FC<Props> = ({
   trip,
   closeView,
   activities,
-  // setForm,
+  addActivity,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const [type, setType] = React.useState("");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setType(event.target.value as string);
+  };
+
+  const defaultValues = {
+    // an obj initialized with properties for each form value
+    tripId: trip,
+    date: "",
+    activityName: "",
+    activityAddress: "",
+    type: "",
+    cost: 0,
+  };
+
   const [formValues, setFormValues] = useState(defaultValues);
 
   const handleClickOpen = () => {
@@ -76,20 +87,18 @@ export const ViewTrip: React.FC<Props> = ({
       </div>
       <div className="add-activity">
         <div>
-          <Button
-            variant="contained"
-            onClick={handleClickOpen}
-          >
+          <Button variant="contained" onClick={handleClickOpen}>
             Add Activity
           </Button>
+
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Add an Activity</DialogTitle>
-            <DialogContent>
+            <DialogContent className="dialog-fields">
               <DialogContentText>
                 Please fill out the following fields.
               </DialogContentText>
               <TextField
-                // autoFocus
+                autoFocus
                 margin="dense"
                 id="date-input"
                 name="date"
@@ -124,7 +133,27 @@ export const ViewTrip: React.FC<Props> = ({
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
               />
-              {/* Add dropdown for type of activity */}
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                  <Select
+                    autoFocus
+                    margin="dense"
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={type}
+                    label="Type"
+                    onChange={handleChange}
+                    fullWidth
+                  >
+                    <MenuItem value={"Food"}>Food</MenuItem>
+                    <MenuItem value={"Museum"}>Museum</MenuItem>
+                    <MenuItem value={"Park"}>Park</MenuItem>
+                    <MenuItem value={"Transportation"}>Transportation</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+
               <TextField
                 autoFocus
                 margin="dense"
@@ -139,7 +168,20 @@ export const ViewTrip: React.FC<Props> = ({
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleClose}>Add</Button>
+              <Button
+                onClick={() => {
+                  addActivity(
+                    formValues.tripId,
+                    formValues.date,
+                    formValues.activityName,
+                    formValues.activityAddress,
+                    formValues.type,
+                    formValues.cost
+                  );
+                }}
+              >
+                Add
+              </Button>
             </DialogActions>
           </Dialog>
         </div>

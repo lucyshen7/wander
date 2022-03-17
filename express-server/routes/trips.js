@@ -32,6 +32,22 @@ router.post("/activities", (req, res) => {
     });
 });
 
+// POST to add activity
+router.post("/activities/add", (req, res) => {
+  const { tripId, date, activityName, activityAddress, type, cost } = req.body;
+
+  tripQueries.addActivity(tripId, date, activityName, activityAddress, type, cost)
+    .then((activities) => {
+      console.log('activities', activities);
+      res.json({ activities });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
 // POST to todos table
 // router.post("/", (req, res) => {
 //   const { complete, id } = req.body;
