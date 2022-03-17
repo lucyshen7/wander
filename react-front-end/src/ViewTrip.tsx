@@ -14,7 +14,7 @@ interface Props {
   trip: Trip["id"];
   closeView: CloseView;
   activities: Activity[];
-  setForm: Function;
+  // setForm: Function;
 }
 
 const defaultValues = {
@@ -31,7 +31,7 @@ export const ViewTrip: React.FC<Props> = ({
   trip,
   closeView,
   activities,
-  setForm,
+  // setForm,
 }) => {
   const [open, setOpen] = React.useState(false);
   const [formValues, setFormValues] = useState(defaultValues);
@@ -75,19 +75,12 @@ export const ViewTrip: React.FC<Props> = ({
         ))}
       </div>
       <div className="add-activity">
-        <Button
-          variant="contained"
-          className="add-activity-btn"
-          onClick={() => {
-            setForm(true);
-          }}
-        >
-          Add Activity
-        </Button>
-
         <div>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Open form dialog
+          <Button
+            variant="contained"
+            onClick={handleClickOpen}
+          >
+            Add Activity
           </Button>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Add an Activity</DialogTitle>

@@ -17,7 +17,7 @@ function App() {
   const [visible, setVisible] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(0);
   const [activities, setActivities] = useState([]);
-  const [form, setForm] = useState(false);
+  // const [form, setForm] = useState(false);
 
   useEffect(() => {
     // fetch trips
@@ -107,12 +107,12 @@ function App() {
             trip={selectedTrip}
             closeView={closeView}
             activities={activities}
-            setForm={setForm}
+            // setForm={setForm}
           />
         )}
-        {form && (
+        {/* {form && (
           <AddActivityForm tripId={selectedTrip} addActivity={addActivity} />
-        )}
+        )} */}
       </Container>
     </>
   );
