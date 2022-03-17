@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TripList } from "./TripList";
-import { AddActivityForm } from "./AddActivityForm";
+// import { AddActivityForm } from "./AddActivityForm";
 import { Navbar } from "./Navbar";
 import { Container } from "@mui/material";
 import axios from "axios";
@@ -16,7 +16,7 @@ function App() {
   const [trips, setTrips] = useState(initialTrips);
   const [visible, setVisible] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(0);
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState([] as any);
   // const [form, setForm] = useState(false);
 
   useEffect(() => {
@@ -64,10 +64,11 @@ function App() {
         cost: cost,
       })
       .then((res) => {
-        const newActivity = res.data.response[0];
-
-        console.log({ newActivity });
-        // setActivities([...activities, newActivity]);
+        const newActivity = res.data.activities[0];
+        return newActivity;
+      })
+      .then((newActivity) => {
+        setActivities([...activities, newActivity]);
       });
   };
 
@@ -77,7 +78,7 @@ function App() {
       <Container className="main-container">
         <div className="todo-box">
           <h1 className="title">Upcoming Trips</h1>
-          <TripList trips={trips} viewTrip={viewTrip} />
+          <TripList trips={trips} viewTrip={viewTrip} visible={visible} />
         </div>
         {visible && (
           <ViewTrip

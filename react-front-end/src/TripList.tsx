@@ -5,9 +5,10 @@ import List from "@mui/material/List";
 interface Props {
   trips: Trip[];
   viewTrip: ViewTrip;
+  visible: boolean;
 }
 
-export const TripList: React.FC<Props> = ({ trips, viewTrip }) => {
+export const TripList: React.FC<Props> = ({ trips, viewTrip, visible }) => {
   return (
     <List
       sx={{
@@ -33,6 +34,7 @@ export const TripList: React.FC<Props> = ({ trips, viewTrip }) => {
           end_date={trip.end_date}
           photo={trip.photo}
           viewTrip={viewTrip}
+          visible={visible}
         />
       ))}
     </List>

@@ -12,6 +12,7 @@ interface Props {
   end_date: Trip["end_date"];
   photo: Trip["photo"];
   viewTrip: ViewTrip;
+  visible: boolean;
 }
 
 // the TripListItem component will take a triplist item as a prop.
@@ -25,6 +26,7 @@ export const TripListItem: React.FC<Props> = ({
   end_date,
   photo,
   viewTrip,
+  visible,
 }) => {
   const months = [
     "January",
@@ -65,6 +67,7 @@ export const TripListItem: React.FC<Props> = ({
           onClick={() => {
             viewTrip(id);
           }}
+          disabled={visible}
         >
           View
         </Button>

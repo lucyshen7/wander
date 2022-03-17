@@ -10,10 +10,15 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
-import { FormControl, InputLabel } from "@mui/material";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import {
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
+import Select from "@mui/material/Select";
 
 interface Props {
   trip: Trip["id"];
@@ -29,11 +34,7 @@ export const ViewTrip: React.FC<Props> = ({
   addActivity,
 }) => {
   const [open, setOpen] = React.useState(false);
-  const [type, setType] = React.useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setType(event.target.value as string);
-  };
+  // const [type, setType] = React.useState("");
 
   const defaultValues = {
     // an obj initialized with properties for each form value
@@ -42,7 +43,7 @@ export const ViewTrip: React.FC<Props> = ({
     activityName: "",
     activityAddress: "",
     type: "",
-    cost: 0,
+    cost: 0.00,
   };
 
   const [formValues, setFormValues] = useState(defaultValues);
@@ -63,6 +64,10 @@ export const ViewTrip: React.FC<Props> = ({
     });
   };
 
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setType(event.target.value as string);
+  // };
+
   return (
     <div className="view-trip">
       <div className="trip-header">
@@ -82,7 +87,7 @@ export const ViewTrip: React.FC<Props> = ({
       </span>
       <div className="activities-container">
         {activities.map((activity) => (
-          <ViewTripItem activity={activity} />
+          <ViewTripItem key={activity.id} activity={activity} />
         ))}
       </div>
       <div className="add-activity">
@@ -133,38 +138,45 @@ export const ViewTrip: React.FC<Props> = ({
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
               />
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ minWidth: 120, marginTop: "10px" }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                  <InputLabel id="type-select-label">Activity Type</InputLabel>
                   <Select
                     autoFocus
                     margin="dense"
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={type}
-                    label="Type"
-                    onChange={handleChange}
+                    labelId="type-select-label"
+                    id="type-select"
+                    name="type"
+                    value={formValues.type}
+                    label="Activity Type"
+                    onChange={handleInputChange}
                     fullWidth
                   >
                     <MenuItem value={"Food"}>Food</MenuItem>
                     <MenuItem value={"Museum"}>Museum</MenuItem>
                     <MenuItem value={"Park"}>Park</MenuItem>
                     <MenuItem value={"Transportation"}>Transportation</MenuItem>
+                    <MenuItem value={"Other"}>Other</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
 
-              <TextField
-                autoFocus
-                margin="dense"
-                id="cost-input"
-                name="cost"
-                label="Cost"
-                type="number"
-                value={formValues.cost}
-                onChange={handleInputChange}
-                InputLabelProps={{ shrink: true }}
-              />
+              <FormControl fullWidth sx={{ marginTop: "10px" }}>
+                <InputLabel htmlFor="outlined-adornment-cost">
+                  Cost
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-cost"
+                  value={formValues.cost}
+                  name="cost"
+                  onChange={handleInputChange}
+                  startAdornment={
+                    <InputAdornment position="start">$</InputAdornment>
+                  }
+                  label="Cost"
+                />
+              </FormControl>
+              
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
@@ -178,6 +190,7 @@ export const ViewTrip: React.FC<Props> = ({
                     formValues.type,
                     formValues.cost
                   );
+                  handleClose();
                 }}
               >
                 Add

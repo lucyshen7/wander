@@ -32,7 +32,7 @@ const addTrip = (text) => {
 };
 
 const getActivities = (id) => {
-  return db.query(`SELECT * FROM activities a LEFT JOIN trips t ON t.id = a.trip_id LEFT JOIN destinations d ON d.id = t.destination_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
+  return db.query(`SELECT * FROM activities a JOIN trips t ON t.id = a.trip_id JOIN destinations d ON d.id = t.destination_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
     .then((res) => {
       return res.rows;
     })
@@ -42,7 +42,7 @@ const getActivities = (id) => {
 };
 
 const addActivity = (tripId, date, activityName, activityAddress, type, cost) => {
-  return db.query(`INSERT INTO activities (trip_id, date, activity_name, activity_address, type, cost) VALUES (${tripId}, ${date}, $1, $2, ${type}, $3) RETURNING *;`, [activityName, activityAddress, cost])
+  return db.query(`INSERT INTO activities (trip_id, date, activity_name, activity_address, type, cost) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`, [tripId, date, activityName, activityAddress, type, (cost * 100)])
     .then((res) => {
       console.log('activity post made to db!', res);
       return res.rows;
