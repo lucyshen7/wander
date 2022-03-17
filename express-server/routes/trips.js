@@ -48,6 +48,22 @@ router.post("/activities/add", (req, res) => {
     });
 });
 
+// POST to delete activity
+router.post("/activities/delete", (req, res) => {
+  const { activityId } = req.body;
+
+  tripQueries.deleteActivity(activityId)
+    .then((activities) => {
+      console.log('deleted. activities', activities);
+      res.json({ activities });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
 // POST to todos table
 // router.post("/", (req, res) => {
 //   const { complete, id } = req.body;

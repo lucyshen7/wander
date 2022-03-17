@@ -13,7 +13,7 @@ interface Trip {
 }
 
 interface Activity {
-  id: number;
+  activity_id: number;
   trip_id: number;
   activity_name: text;
   activity_address: text;

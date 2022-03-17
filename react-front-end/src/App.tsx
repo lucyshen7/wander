@@ -32,6 +32,9 @@ function App() {
       .post("http://localhost:8080/api/trips/activities", { id: id })
       .then((response) => {
         const activities = response.data.activities;
+
+        console.log('fetched activities:', activities);
+        
         setActivities(activities);
         setSelectedTrip(id);
         setVisible(true);
@@ -79,12 +82,12 @@ function App() {
       .then((res) => {
         console.log('deleted. res.data is', res.data);
 
-        const newActivity = res.data.activities[0];
-        return newActivity;
+        // const newActivity = res.data.activities[0];
+        // return newActivity;
       })
-      .then((newActivity) => {
-        setActivities([...activities, newActivity]);
-      });
+      // .then((newActivity) => {
+      //   setActivities([...activities, newActivity]);
+      // });
   };
 
   return (

@@ -41,6 +41,8 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
 
   const cost = (activity.cost / 100).toFixed(2);
 
+  console.log('the activity id is', activity.activity_id);
+
   return (
     <div className="activity">
       <span>
@@ -49,10 +51,12 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
       <span>{activity.activity_name}</span>
       <span>{activity.type}</span>
       <span>$ {cost} CAD</span>
+      <span>id {activity.activity_id}</span>
+
       <Button
         variant="outlined"
         onClick={() => {
-          deleteActivity(activity.id);
+          deleteActivity(activity.activity_id);
         }}
       >
         <DeleteIcon color="primary" />

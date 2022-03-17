@@ -27,7 +27,7 @@ CREATE TABLE trips (
 
 DROP TABLE IF EXISTS activities CASCADE;
 CREATE TABLE activities (
-  activities_id SERIAL PRIMARY KEY NOT NULL,
+  activity_id SERIAL PRIMARY KEY NOT NULL,
   trip_id INTEGER REFERENCES trips(id) ON DELETE CASCADE,
   date TIMESTAMP,
   activity_name VARCHAR(255) NOT NULL,

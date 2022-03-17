@@ -52,10 +52,22 @@ const addActivity = (tripId, date, activityName, activityAddress, type, cost) =>
     });
 };
 
+const deleteActivity = (activityId) => {
+  return db.query(`DELETE FROM activities WHERE activity_id = $1;`, [activityId])
+    .then((res) => {
+      console.log('delete post made to db!', res);
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log('DB error deleting activity: ' + err.message);
+    });
+};
+
 module.exports = {
   updateTrip,
   getTrips,
   addTrip,
   getActivities,
   addActivity,
+  deleteActivity,
 };

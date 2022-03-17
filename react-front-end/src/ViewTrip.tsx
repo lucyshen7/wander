@@ -85,7 +85,7 @@ export const ViewTrip: React.FC<Props> = ({
       <div className="activities-container">
         {activities.map((activity) => (
           <ViewTripItem
-            key={activity.id}
+            key={activity.activity_id}
             activity={activity}
             deleteActivity={deleteActivity}
           />
