@@ -7,9 +7,15 @@ interface Props {
   trip: Trip["id"];
   closeView: CloseView;
   activities: Activity[];
+  setForm: Function;
 }
 
-export const ViewTrip: React.FC<Props> = ({ trip, closeView, activities }) => {
+export const ViewTrip: React.FC<Props> = ({
+  trip,
+  closeView,
+  activities,
+  setForm,
+}) => {
   return (
     <div className="view-trip">
       <div className="trip-header">
@@ -33,7 +39,13 @@ export const ViewTrip: React.FC<Props> = ({ trip, closeView, activities }) => {
         ))}
       </div>
       <div className="add-activity">
-        <Button variant="contained" className="add-activity-btn">
+        <Button
+          variant="contained"
+          className="add-activity-btn"
+          onClick={() => {
+            setForm(true);
+          }}
+        >
           Add Activity
         </Button>
       </div>

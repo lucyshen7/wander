@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { TripList } from "./TripList";
-// import { AddTodoForm } from "./AddTodoForm";
+import { AddActivityForm } from "./AddActivityForm";
 import { Navbar } from "./Navbar";
 import { Container } from "@mui/material";
 import axios from "axios";
@@ -17,6 +17,7 @@ function App() {
   const [visible, setVisible] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(0);
   const [activities, setActivities] = useState([]);
+  const [form, setForm] = useState(false);
 
   useEffect(() => {
     // fetch trips
@@ -39,7 +40,6 @@ function App() {
 
         setSelectedTrip(id);
         setVisible(true);
-        
       })
       .catch((err) => console.log("err fetching data!!!!", err.message));
   };
@@ -68,16 +68,30 @@ function App() {
   //     });
   // };
 
-  // const addTodo: AddTodo = (text: string) => {
-  //   axios
-  //     .post("http://localhost:8080/api/todos/add", {
-  //       text: text,
-  //     })
-  //     .then((res) => {
-  //       const newTodo = res.data.response[0];
-  //       setTodos([...todos, newTodo]);
-  //     });
-  // };
+  const addActivity: AddActivity = (
+    tripId: number,
+    date: string,
+    activityName: string,
+    activityAddress: string,
+    type: string,
+    cost: number
+  ) => {
+    axios
+      .post("http://localhost:8080/api/trips/add", {
+        tripId: tripId,
+        date: date,
+        activityName: activityName,
+        activityAddress: activityAddress,
+        type: type,
+        cost: cost,
+      })
+      .then((res) => {
+        const newActivity = res.data.response[0];
+
+        console.log({ newActivity });
+        // setActivities([...activities, newActivity]);
+      });
+  };
 
   return (
     <>
@@ -93,7 +107,11 @@ function App() {
             trip={selectedTrip}
             closeView={closeView}
             activities={activities}
+            setForm={setForm}
           />
+        )}
+        {form && (
+          <AddActivityForm tripId={selectedTrip} addActivity={addActivity} />
         )}
       </Container>
     </>
