@@ -34,7 +34,6 @@ export const ViewTrip: React.FC<Props> = ({
   addActivity,
 }) => {
   const [open, setOpen] = React.useState(false);
-  // const [type, setType] = React.useState("");
 
   const defaultValues = {
     // an obj initialized with properties for each form value
@@ -63,10 +62,6 @@ export const ViewTrip: React.FC<Props> = ({
       [name]: value,
     });
   };
-
-  // const handleChange = (event: SelectChangeEvent) => {
-  //   setType(event.target.value as string);
-  // };
 
   return (
     <div className="view-trip">

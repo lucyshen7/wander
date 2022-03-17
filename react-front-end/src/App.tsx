@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { TripList } from "./TripList";
-// import { AddActivityForm } from "./AddActivityForm";
 import { Navbar } from "./Navbar";
 import { Container } from "@mui/material";
 import axios from "axios";
 import "./App.scss";
 import { ViewTrip } from "./ViewTrip";
-// import { TripListItem } from "./TripListItem";
 
 const initialTrips: Trip[] = [];
 
@@ -17,7 +15,6 @@ function App() {
   const [visible, setVisible] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(0);
   const [activities, setActivities] = useState([] as any);
-  // const [form, setForm] = useState(false);
 
   useEffect(() => {
     // fetch trips
