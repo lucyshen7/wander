@@ -110,19 +110,23 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 .activities-container {
   display: flex;
   flex-direction: column;
-  // background-color: lightpink;
   margin-top: 10px;
   height: 100%;
   row-gap: 10px;
+  overflow: auto;
+  margin-bottom: 10px;
 }
 
 .activity {
   background-color: rgb(219, 173, 217);
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  height: 50px;
+  justify-content: space-between;
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+  min-height: 40px;
   align-items: center;
+  align-content: flex-start;
 }
 
 .add-activity-btn {
@@ -134,10 +138,4 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-.dialog-fields {
-  // display: flex;
-  // flex-direction: column;
-  // width: auto;
 }
