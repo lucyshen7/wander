@@ -145,3 +145,10 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   flex-direction: row;
   justify-content: flex-end;
 }
+
+.alert-msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 30%;
+}

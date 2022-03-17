@@ -4,6 +4,7 @@ interface Trip {
   id: number;
   destination_id: number;
   hotel_name: text;
+  hotel_address: text;
   city: text;
   province: text;
   country: text;

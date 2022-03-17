@@ -104,6 +104,7 @@ function App() {
             activities={activities}
             addActivity={addActivity}
             deleteActivity={deleteActivity}
+            trips={trips}
           />
         )}
       </Container>

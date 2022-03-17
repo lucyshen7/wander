@@ -19,6 +19,7 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import Select from "@mui/material/Select";
+import Alert from "@mui/material/Alert";
 
 interface Props {
   trip: Trip["id"];
@@ -26,6 +27,7 @@ interface Props {
   activities: Activity[];
   addActivity: AddActivity;
   deleteActivity: DeleteActivity;
+  trips: Trip[];
 }
 
 export const ViewTrip: React.FC<Props> = ({
@@ -34,6 +36,7 @@ export const ViewTrip: React.FC<Props> = ({
   activities,
   addActivity,
   deleteActivity,
+  trips,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -46,6 +49,12 @@ export const ViewTrip: React.FC<Props> = ({
     type: "",
     cost: 0.0,
   };
+
+  const getTripById = (trips: Trip[], id: Trip["id"]) => {
+    const tripObj = trips.find((trip) => trip.id === id);
+    return tripObj;
+  };
+  const tripObj = getTripById(trips, trip);
 
   const [formValues, setFormValues] = useState(defaultValues);
 
@@ -68,7 +77,7 @@ export const ViewTrip: React.FC<Props> = ({
   return (
     <div className="view-trip">
       <div className="trip-header">
-        {activities[0].city} Trip Itinerary:
+        {tripObj && tripObj.city} Trip Itinerary:
         <Button
           variant="contained"
           color="error"
@@ -80,9 +89,20 @@ export const ViewTrip: React.FC<Props> = ({
         </Button>
       </div>
       <span>
-        Hotel: {activities[0].hotel_name}, {activities[0].hotel_address}
+        Hotel: {tripObj && tripObj.hotel_name},{" "}
+        {tripObj && tripObj.hotel_address}
       </span>
+
       <div className="activities-container">
+        {activities.length === 0 ? (
+          <div className="alert-msg">
+            <Alert severity="info" sx={{ fontFamily: "Comfortaa" }}>
+              You have no activities! Add an activity below.
+            </Alert>
+          </div>
+        ) : (
+          ""
+        )}
         {activities.map((activity) => (
           <ViewTripItem
             key={activity.activity_id}
@@ -91,6 +111,7 @@ export const ViewTrip: React.FC<Props> = ({
           />
         ))}
       </div>
+
       <div className="total-cost">
         <TotalCost activities={activities} />
       </div>
