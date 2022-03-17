@@ -53,7 +53,7 @@ const addActivity = (tripId, date, activityName, activityAddress, type, cost) =>
 };
 
 const deleteActivity = (activityId) => {
-  return db.query(`DELETE FROM activities WHERE activity_id = $1;`, [activityId])
+  return db.query(`DELETE FROM activities WHERE activity_id = $1 RETURNING activity_id;`, [activityId])
     .then((res) => {
       console.log('delete post made to db!', res);
       return res.rows;

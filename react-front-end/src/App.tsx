@@ -31,10 +31,7 @@ function App() {
     axios
       .post("http://localhost:8080/api/trips/activities", { id: id })
       .then((response) => {
-        const activities = response.data.activities;
-
-        console.log('fetched activities:', activities);
-        
+        const activities = response.data.activities;        
         setActivities(activities);
         setSelectedTrip(id);
         setVisible(true);
@@ -80,14 +77,16 @@ function App() {
         activityId: activityId
       })
       .then((res) => {
-        console.log('deleted. res.data is', res.data);
-
-        // const newActivity = res.data.activities[0];
-        // return newActivity;
+        const deletedId = res.data.activities[0].activity_id;
+        return deletedId;
       })
-      // .then((newActivity) => {
-      //   setActivities([...activities, newActivity]);
-      // });
+      .then((deletedId) => {
+        const findId = (element: any) => element.activity_id === deletedId;
+        const index = activities.findIndex(findId);
+        const newArray = [...activities];
+        newArray.splice(index, 1);
+        setActivities(newArray);
+      });
   };
 
   return (

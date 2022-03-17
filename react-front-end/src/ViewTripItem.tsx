@@ -51,8 +51,6 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
       <span>{activity.activity_name}</span>
       <span>{activity.type}</span>
       <span>$ {cost} CAD</span>
-      <span>id {activity.activity_id}</span>
-
       <Button
         variant="outlined"
         onClick={() => {
