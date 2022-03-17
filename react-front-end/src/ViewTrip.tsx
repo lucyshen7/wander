@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./App.scss";
 import { ViewTripItem } from "./ViewTripItem";
-import TextField from "@mui/material/TextField";
+import { TotalCost } from "./TotalCost";
 
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import {
@@ -42,7 +42,7 @@ export const ViewTrip: React.FC<Props> = ({
     activityName: "",
     activityAddress: "",
     type: "",
-    cost: 0.00,
+    cost: 0.0,
   };
 
   const [formValues, setFormValues] = useState(defaultValues);
@@ -84,6 +84,9 @@ export const ViewTrip: React.FC<Props> = ({
         {activities.map((activity) => (
           <ViewTripItem key={activity.id} activity={activity} />
         ))}
+      </div>
+      <div className="total-cost">
+        <TotalCost activities={activities} />
       </div>
       <div className="add-activity">
         <div>
@@ -157,9 +160,7 @@ export const ViewTrip: React.FC<Props> = ({
               </Box>
 
               <FormControl fullWidth sx={{ marginTop: "10px" }}>
-                <InputLabel htmlFor="outlined-adornment-cost">
-                  Cost
-                </InputLabel>
+                <InputLabel htmlFor="outlined-adornment-cost">Cost</InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-cost"
                   value={formValues.cost}
@@ -171,7 +172,6 @@ export const ViewTrip: React.FC<Props> = ({
                   label="Cost"
                 />
               </FormControl>
-              
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
