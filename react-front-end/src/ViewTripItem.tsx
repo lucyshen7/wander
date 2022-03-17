@@ -1,11 +1,14 @@
+import { Button } from "@mui/material";
 import React from "react";
 import "./App.scss";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {
   activity: Activity;
+  deleteActivity: DeleteActivity;
 }
 
-export const ViewTripItem: React.FC<Props> = ({ activity }) => {
+export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
   const months = [
     "January",
     "February",
@@ -46,6 +49,14 @@ export const ViewTripItem: React.FC<Props> = ({ activity }) => {
       <span>{activity.activity_name}</span>
       <span>{activity.type}</span>
       <span>$ {cost} CAD</span>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          deleteActivity(activity.id);
+        }}
+      >
+        <DeleteIcon color="primary" />
+      </Button>
     </div>
   );
 };

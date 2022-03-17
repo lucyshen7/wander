@@ -25,6 +25,7 @@ interface Props {
   closeView: CloseView;
   activities: Activity[];
   addActivity: AddActivity;
+  deleteActivity: DeleteActivity;
 }
 
 export const ViewTrip: React.FC<Props> = ({
@@ -32,6 +33,7 @@ export const ViewTrip: React.FC<Props> = ({
   closeView,
   activities,
   addActivity,
+  deleteActivity,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -82,7 +84,11 @@ export const ViewTrip: React.FC<Props> = ({
       </span>
       <div className="activities-container">
         {activities.map((activity) => (
-          <ViewTripItem key={activity.id} activity={activity} />
+          <ViewTripItem
+            key={activity.id}
+            activity={activity}
+            deleteActivity={deleteActivity}
+          />
         ))}
       </div>
       <div className="total-cost">

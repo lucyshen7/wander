@@ -69,6 +69,24 @@ function App() {
       });
   };
 
+  const deleteActivity = (
+    activityId: number
+  ) => {
+    axios
+      .post("http://localhost:8080/api/trips/activities/delete", {
+        activityId: activityId
+      })
+      .then((res) => {
+        console.log('deleted. res.data is', res.data);
+
+        const newActivity = res.data.activities[0];
+        return newActivity;
+      })
+      .then((newActivity) => {
+        setActivities([...activities, newActivity]);
+      });
+  };
+
   return (
     <>
       <Navbar user={fakeUser} />
@@ -83,6 +101,7 @@ function App() {
             closeView={closeView}
             activities={activities}
             addActivity={addActivity}
+            deleteActivity={deleteActivity}
           />
         )}
       </Container>
