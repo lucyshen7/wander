@@ -7,4 +7,4 @@ Features include:
 - Users can see the daily weather forecast for their trip and plan their activities accordingly
 - Users can view the time and distance between their hotel and the location of their activities
 
-### Project in Progress. 💻✨
+### Project in Progress. Please visit again soon! 💻✨
