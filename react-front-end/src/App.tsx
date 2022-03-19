@@ -28,11 +28,11 @@ function App() {
       .catch((err) => console.log("err fetching data!!!!", err.message));
   }, []);
 
-  const viewTrip = (id: Trip["id"]) => {
+  const viewTrip = (id: Trip["trip_id"]) => {
     axios
       .post("http://localhost:8080/api/trips/activities", { id: id })
       .then((response) => {
-        const activities = response.data.activities;        
+        const activities = response.data.activities;
         setActivities(activities);
         setSelectedTrip(id);
         setVisible(true);
@@ -42,6 +42,34 @@ function App() {
 
   const closeView = () => {
     setVisible(false);
+  };
+
+  const addTrip = (
+    destinationId: number,
+    hotelName: string,
+    hotelAddress: string,
+    startDate: string,
+    endDate: string,
+    hotelCost: number,
+    flightCost: number
+  ) => {
+    axios
+      .post("http://localhost:8080/api/trips/add", {
+        destinationId: destinationId,
+        hotelName: hotelName,
+        hotelAddress: hotelAddress,
+        startDate: startDate,
+        endDate: endDate,
+        hotelCost: hotelCost,
+        flightCost: flightCost,
+      })
+      .then((res) => {
+        const newTrip = res.data.trips[0];
+        return newTrip;
+      })
+      .then((newTrip) => {
+        setTrips([...trips, newTrip]);
+      });
   };
 
   const addActivity = (
@@ -70,12 +98,10 @@ function App() {
       });
   };
 
-  const deleteActivity = (
-    activityId: number
-  ) => {
+  const deleteActivity = (activityId: number) => {
     axios
       .post("http://localhost:8080/api/trips/activities/delete", {
-        activityId: activityId
+        activityId: activityId,
       })
       .then((res) => {
         const deletedId = res.data.activities[0].activity_id;
@@ -97,7 +123,7 @@ function App() {
         <div className="todo-box">
           <h1 className="title">Upcoming Trips</h1>
           <TripList trips={trips} viewTrip={viewTrip} visible={visible} />
-          <AddTripForm />
+          <AddTripForm addTrip={addTrip} />
         </div>
         {visible && (
           <ViewTrip

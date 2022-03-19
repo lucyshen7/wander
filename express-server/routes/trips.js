@@ -18,12 +18,28 @@ router.get("/", (req, res) => {
 
 // POST to fetch activities
 router.post("/activities", (req, res) => {
-  const { id } = req.body;
+  const { tripId } = req.body;
 
-  tripQueries.getActivities(id)
+  tripQueries.getActivities(tripId)
     .then((activities) => {
       console.log('activities', activities);
       res.json({ activities });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
+// POST to add trip
+router.post("/add", (req, res) => {
+  const { destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost } = req.body;
+
+  tripQueries.addTrip(destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost)
+    .then((trips) => {
+      console.log('trips', trips);
+      res.json({ trips });
     })
     .catch((err) => {
       res

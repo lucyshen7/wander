@@ -1,7 +1,7 @@
 const db = require('./index');
 
 const getTrips = () => {
-  return db.query(`SELECT * FROM trips JOIN destinations ON trips.destination_id=destinations.id ORDER BY start_date ASC;`)
+  return db.query(`SELECT * FROM trips JOIN destinations ON trips.destination_id=destinations.destination_id ORDER BY start_date ASC;`)
     .then((res) => {
       return res.rows;
     })
@@ -10,29 +10,29 @@ const getTrips = () => {
     });
 };
 
-const updateTrip = (complete, id) => {
-  return db.query(`UPDATE trips SET complete = $1 WHERE id = $2;`, [complete, id])
-    .then((res) => {
-      return res.rows;
-    })
-    .catch((err) => {
-      console.log('DB error updating todo: ' + err.message);
-    });
-};
+// const updateTrip = (complete, id) => {
+//   return db.query(`UPDATE trips SET complete = $1 WHERE id = $2;`, [complete, id])
+//     .then((res) => {
+//       return res.rows;
+//     })
+//     .catch((err) => {
+//       console.log('DB error updating todo: ' + err.message);
+//     });
+// };
 
-const addTrip = (text) => {
-  return db.query(`INSERT INTO trips (text, complete) VALUES ($1, false) RETURNING *;`, [text])
+const addTrip = (destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost) => {
+  return db.query(`INSERT INTO trips (destination_id, hotel_name, hotel_address, start_date, end_date, flight_cost, hotel_cost, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`, [destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost, new Date()])
     .then((res) => {
       console.log('res.rows', res.rows);
       return res.rows;
     })
     .catch((err) => {
-      console.log('DB error adding todo: ' + err.message);
+      console.log('DB error adding trip: ' + err.message);
     });
 };
 
 const getActivities = (id) => {
-  return db.query(`SELECT * FROM activities a JOIN trips t ON t.id = a.trip_id JOIN destinations d ON d.id = t.destination_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
+  return db.query(`SELECT * FROM activities a JOIN trips t ON t.trip_id = a.trip_id JOIN destinations d ON d.destination_id = t.destination_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
     .then((res) => {
       return res.rows;
     })

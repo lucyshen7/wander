@@ -4,7 +4,7 @@ import "./App.scss";
 import { Button } from "@mui/material";
 
 interface Props {
-  id: Trip["id"];
+  id: Trip["trip_id"];
   city: Trip["city"];
   province: Trip["province"];
   country: Trip["country"];

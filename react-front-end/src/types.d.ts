@@ -1,7 +1,7 @@
 // Type Declaration File (global to the project)
 
 interface Trip {
-  id: number;
+  trip_id: number;
   destination_id: number;
   hotel_name: text;
   hotel_address: text;
@@ -31,11 +31,13 @@ interface User {
   name: string;
 }
 
-type ViewTrip = (selectedTrip: Trip["id"]) => void;
+type ViewTrip = (selectedTrip: Trip["trip_id"]) => void;
 
 type CloseView = () => void;
 
 // Declare the type AddActivity
 type AddActivity = (tripId: number, date: string, activityName: string, activityAddress: string, type: string, cost: number) => void;
+
+type AddTrip = (destinationId: number, hotelName: string, hotelAddress: string, startDate: string, endDate: string, hotelCost: number, flightCost: number) => void;
 
 type DeleteActivity = (activityId: number) => void;

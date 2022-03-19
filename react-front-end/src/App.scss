@@ -161,3 +161,13 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   flex-direction: column;
   justify-content: center;
 }
+
+.two-fields-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.two-fields {
+  width: 48%;
+}

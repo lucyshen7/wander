@@ -22,7 +22,7 @@ import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 
 interface Props {
-  trip: Trip["id"];
+  trip: Trip["trip_id"];
   closeView: CloseView;
   activities: Activity[];
   addActivity: AddActivity;
@@ -50,8 +50,8 @@ export const ViewTrip: React.FC<Props> = ({
     cost: 0,
   };
 
-  const getTripById = (trips: Trip[], id: Trip["id"]) => {
-    const tripObj = trips.find((trip) => trip.id === id);
+  const getTripById = (trips: Trip[], id: Trip["trip_id"]) => {
+    const tripObj = trips.find((trip) => trip.trip_id === id);
     return tripObj;
   };
   const tripObj = getTripById(trips, trip);

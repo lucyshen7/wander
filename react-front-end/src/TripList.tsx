@@ -25,8 +25,8 @@ export const TripList: React.FC<Props> = ({ trips, viewTrip, visible }) => {
     >
       {trips.map((trip) => (
         <TripListItem
-          key={trip.id}
-          id={trip.id}
+          key={trip.trip_id}
+          id={trip.trip_id}
           city={trip.city}
           province={trip.province}
           country={trip.country}

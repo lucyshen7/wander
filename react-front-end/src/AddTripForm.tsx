@@ -18,7 +18,11 @@ import {
 } from "@mui/material";
 import Select from "@mui/material/Select";
 
-export const AddTripForm: React.FC = () => {
+interface Props {
+  addTrip: AddTrip;
+}
+
+export const AddTripForm: React.FC<Props> = ({ addTrip }) => {
   const [open, setOpen] = React.useState(false);
 
   const defaultValues = {
@@ -58,10 +62,9 @@ export const AddTripForm: React.FC = () => {
         <DialogTitle>Add a Trip</DialogTitle>
         <DialogContent className="dialog-fields">
           <DialogContentText>
-            Please fill out the following fields.
+            Please fill out the trip details below.
           </DialogContentText>
-
-          <Box sx={{ minWidth: 120, marginTop: "10px" }}>
+          <Box sx={{ minWidth: 120, marginTop: "20px", marginBottom: "5px" }}>
             <FormControl fullWidth>
               <InputLabel id="destination-select-label">Destination</InputLabel>
               <Select
@@ -75,9 +78,9 @@ export const AddTripForm: React.FC = () => {
                 onChange={handleInputChange}
                 fullWidth
               >
-                <MenuItem value={1}>Miami, Florida</MenuItem>
-                <MenuItem value={2}>Shinjuku, Tokyo</MenuItem>
-                <MenuItem value={3}>Other</MenuItem>
+                <MenuItem value={"1"}>Miami, Florida, USA</MenuItem>
+                <MenuItem value={"2"}>Shinjuku, Tokyo, Japan</MenuItem>
+                <MenuItem value={"3"}>Other</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -105,73 +108,83 @@ export const AddTripForm: React.FC = () => {
             onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="startDate-input"
-            name="startDate"
-            label="Start Date"
-            type="date"
-            fullWidth
-            value={formValues.startDate}
-            onChange={handleInputChange}
-            InputLabelProps={{ shrink: true }}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="endDate-input"
-            name="endDate"
-            label="End Date"
-            type="date"
-            fullWidth
-            value={formValues.endDate}
-            onChange={handleInputChange}
-            InputLabelProps={{ shrink: true }}
-          />
-          <FormControl fullWidth sx={{ marginTop: "10px" }}>
-            <InputLabel htmlFor="outlined-adornment-cost">
-              Flight Cost
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-cost"
-              value={formValues.flightCost}
-              name="flightCost"
-              onChange={handleInputChange}
-              startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
-              }
-              label="Flight Cost"
-            />
-          </FormControl>
-          <FormControl fullWidth sx={{ marginTop: "10px" }}>
-            <InputLabel htmlFor="outlined-adornment-cost">
-              Hotel Cost
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-cost"
-              value={formValues.hotelCost}
-              name="hotelCost"
-              onChange={handleInputChange}
-              startAdornment={
-                <InputAdornment position="start">$</InputAdornment>
-              }
-              label="Hotel Cost"
-            />
-          </FormControl>
+          <div className="two-fields-form">
+            <FormControl className="two-fields">
+              <TextField
+                autoFocus
+                margin="dense"
+                id="startDate-input"
+                name="startDate"
+                label="Start Date"
+                type="date"
+                fullWidth
+                value={formValues.startDate}
+                onChange={handleInputChange}
+                InputLabelProps={{ shrink: true }}
+              />
+            </FormControl>
+            <FormControl className="two-fields">
+              <TextField
+                className="two-fields"
+                autoFocus
+                margin="dense"
+                id="endDate-input"
+                name="endDate"
+                label="End Date"
+                type="date"
+                fullWidth
+                value={formValues.endDate}
+                onChange={handleInputChange}
+                InputLabelProps={{ shrink: true }}
+              />
+            </FormControl>
+          </div>
+          <div className="two-fields-form">
+            <FormControl className="two-fields" sx={{ marginTop: "10px" }}>
+              <InputLabel htmlFor="outlined-adornment-cost">
+                Flight Cost
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-cost"
+                value={formValues.flightCost}
+                name="flightCost"
+                onChange={handleInputChange}
+                startAdornment={
+                  <InputAdornment position="start">$</InputAdornment>
+                }
+                label="Flight Cost"
+              />
+            </FormControl>
+            <FormControl className="two-fields" sx={{ marginTop: "10px" }}>
+              <InputLabel htmlFor="outlined-adornment-cost">
+                Hotel Cost
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-cost"
+                value={formValues.hotelCost}
+                name="hotelCost"
+                onChange={handleInputChange}
+                startAdornment={
+                  <InputAdornment position="start">$</InputAdornment>
+                }
+                label="Hotel Cost"
+              />
+            </FormControl>
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={() => {
-              // addActivity(
-              //   formValues.tripId,
-              //   formValues.date,
-              //   formValues.activityName,
-              //   formValues.activityAddress,
-              //   formValues.type,
-              //   formValues.cost
-              // );
+              addTrip(
+                formValues.destination,
+                formValues.hotelName,
+                formValues.hotelAddress,
+                formValues.startDate,
+                formValues.endDate,
+                formValues.hotelCost,
+                formValues.flightCost
+              );
               handleClose();
             }}
           >
