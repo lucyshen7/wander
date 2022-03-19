@@ -14,7 +14,8 @@ form.add-todo {
   column-gap: 5px;
 }
 
-.nav, .profile {
+.nav,
+.profile {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -39,7 +40,8 @@ form.add-todo {
   width: 70%;
 }
 
-.logo, .title {
+.logo,
+.title {
   font-family: "Bungee Shade", cursive;
   font-size: 38px;
 }
@@ -83,7 +85,8 @@ form.add-todo {
   width: 100%;
   height: 80%;
   background-color: rgba(234, 234, 234, 0.726);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
 div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiContainer-root {
@@ -118,7 +121,7 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 }
 
 .activity {
-  background-color: rgb(219, 173, 217);
+  background-color: rgb(163 163 163);
   display: flex;
   flex-direction: row;
   justify-content: space-between;

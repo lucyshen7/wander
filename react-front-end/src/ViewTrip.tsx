@@ -47,7 +47,7 @@ export const ViewTrip: React.FC<Props> = ({
     activityName: "",
     activityAddress: "",
     type: "",
-    cost: 0.0,
+    cost: 0,
   };
 
   const getTripById = (trips: Trip[], id: Trip["id"]) => {

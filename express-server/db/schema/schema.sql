@@ -22,6 +22,8 @@ CREATE TABLE trips (
   hotel_address VARCHAR(255) NOT NULL,
   start_date TIMESTAMP,
   end_date TIMESTAMP,
+  flight_cost INTEGER,
+  hotel_cost INTEGER,
   created_at TIMESTAMP
 );
 
