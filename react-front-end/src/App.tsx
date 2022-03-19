@@ -5,6 +5,7 @@ import { Container } from "@mui/material";
 import axios from "axios";
 import "./App.scss";
 import { ViewTrip } from "./ViewTrip";
+import { AddTripForm } from "./AddTripForm";
 
 const initialTrips: Trip[] = [];
 
@@ -96,6 +97,7 @@ function App() {
         <div className="todo-box">
           <h1 className="title">Upcoming Trips</h1>
           <TripList trips={trips} viewTrip={viewTrip} visible={visible} />
+          <AddTripForm />
         </div>
         {visible && (
           <ViewTrip
