@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TripList } from "./TripList";
 import { Navbar } from "./Navbar";
-import { Container } from "@mui/material";
+import { Container, getTouchRippleUtilityClass } from "@mui/material";
 import axios from "axios";
 import "./App.scss";
 import { ViewTrip } from "./ViewTrip";
@@ -44,6 +44,16 @@ function App() {
     setVisible(false);
   };
 
+  const getTrips = () => {
+    axios
+      .get("http://localhost:8080/api/trips")
+      .then((response) => {
+        const trips = response.data.trips;
+        setTrips(trips);
+      })
+      .catch((err) => console.log("err fetching trips data!!!!", err.message));
+  };
+
   const addTrip = (
     destinationId: number,
     hotelName: string,
@@ -69,6 +79,7 @@ function App() {
       })
       .then((newTrip) => {
         setTrips([...trips, newTrip]);
+        getTrips();
       });
   };
 

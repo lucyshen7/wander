@@ -1,5 +1,17 @@
 #root {
-  background-color: #b4a4bb;
+  // background-color: #b4a4bb;
+  background: #d3cce3; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #e9e4f0,
+    #d3cce3
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #e9e4f0,
+    #d3cce3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -97,7 +109,6 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   margin: auto;
   width: 98%;
   height: 100%;
-  background-color: #b4a4bb;
   overflow: auto;
   column-gap: 15px;
 }
