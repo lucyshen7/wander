@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
 import { ViewTripItem } from "./ViewTripItem";
 import { TotalCost } from "./TotalCost";
@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
+import axios from "axios";
 
 interface Props {
   trip: Trip["trip_id"];
@@ -30,6 +31,8 @@ interface Props {
   trips: Trip[];
 }
 
+const APIkey = process.env.REACT_APP_API_KEY;
+
 export const ViewTrip: React.FC<Props> = ({
   trip,
   closeView,
@@ -39,6 +42,11 @@ export const ViewTrip: React.FC<Props> = ({
   trips,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const [weather, setWeather] = React.useState({
+    temp: 0,
+    feelsLike: 0,
+    desc: "",
+  });
 
   const defaultValues = {
     // an obj initialized with properties for each form value
@@ -55,6 +63,32 @@ export const ViewTrip: React.FC<Props> = ({
     return tripObj;
   };
   const tripObj = getTripById(trips, trip);
+
+  const city = tripObj?.city;
+  const country = tripObj?.country;
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIkey}`
+      )
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        const temp = Math.round(data.main.temp - 273.15);
+        const feelsLike = Math.round(data.main.feels_like - 273.15);
+        const desc = data.weather[0].description;
+        setWeather({
+          temp: temp,
+          feelsLike: feelsLike,
+          desc: desc,
+        });
+      })
+      .catch((err) => {
+        console.log("err fetching weather", err.message);
+      });
+  }, [city, country]);
 
   const [formValues, setFormValues] = useState(defaultValues);
 
@@ -77,7 +111,7 @@ export const ViewTrip: React.FC<Props> = ({
   return (
     <div className="view-trip">
       <div className="trip-header">
-        {tripObj && tripObj.city} Trip Itinerary:
+        {tripObj && tripObj.city} Trip Details:
         <Button
           variant="contained"
           color="error"
@@ -88,12 +122,21 @@ export const ViewTrip: React.FC<Props> = ({
           Close
         </Button>
       </div>
-      <span>
+      <div className="trip-info">
         Hotel: {tripObj && tripObj.hotel_name},{" "}
         {tripObj && tripObj.hotel_address}
-      </span>
+        <div>Map</div>
+      </div>
+
+      <div className="weather">
+        <span>Weather</span>
+        <span>Current Temp: {weather.temp} °C</span>
+        <span>Feels Like: {weather.feelsLike} °C</span>
+        <span>Desc: {weather.desc}</span>
+      </div>
 
       <div className="activities-container">
+        Itinerary
         {activities.length === 0 ? (
           <div className="alert-msg">
             <Alert severity="info" sx={{ fontFamily: "Comfortaa" }}>

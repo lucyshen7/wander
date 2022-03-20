@@ -160,13 +160,6 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   justify-content: flex-end;
 }
 
-.alert-msg {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 30%;
-}
-
 .add-trip-form {
   display: flex;
   flex-direction: column;
@@ -182,4 +175,15 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 
 .two-fields {
   width: 48%;
+}
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.trip-info {
+  background: cornsilk;
+  margin-bottom: 10px;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TripList } from "./TripList";
 import { Navbar } from "./Navbar";
-import { Container, getTouchRippleUtilityClass } from "@mui/material";
+import { Container } from "@mui/material";
 import axios from "axios";
 import "./App.scss";
 import { ViewTrip } from "./ViewTrip";
@@ -144,6 +144,7 @@ function App() {
             addActivity={addActivity}
             deleteActivity={deleteActivity}
             trips={trips}
+            // getWeather={getWeather}
           />
         )}
       </Container>
