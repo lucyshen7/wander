@@ -30,7 +30,7 @@ function App() {
 
   const viewTrip = (id: Trip["trip_id"]) => {
     axios
-      .post("http://localhost:8080/api/trips/activities", { id: id })
+      .post("http://localhost:8080/api/trips/activities", { tripId: id })
       .then((response) => {
         const activities = response.data.activities;
         setActivities(activities);

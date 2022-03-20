@@ -1,7 +1,7 @@
 const db = require('./index');
 
 const getTrips = () => {
-  return db.query(`SELECT * FROM trips JOIN destinations ON trips.destination_id=destinations.destination_id ORDER BY start_date ASC;`)
+  return db.query(`SELECT * FROM trips t JOIN destinations d ON t.destination_id=d.destination_id ORDER BY start_date ASC;`)
     .then((res) => {
       return res.rows;
     })
@@ -64,7 +64,6 @@ const deleteActivity = (activityId) => {
 };
 
 module.exports = {
-  updateTrip,
   getTrips,
   addTrip,
   getActivities,
