@@ -5,7 +5,7 @@ Features include:
 - Users can add and view their upcoming trips and a list of activities for each trip
 - Users can view the total cost of the trip
 - Users can see the daily weather forecast for their trip and plan their activities accordingly
-- Users can see the locations of their hotel and activities plotted on a map
+- Users can see the location of their hotel and activities plotted on a map
 - Users can view the time and distance between their hotel and the location of their activities
 
 **Tech Stack: React JS, TypeScript, PostgreSQL, Express.js, Node.js, Axios, SASS, and Material UI.**
