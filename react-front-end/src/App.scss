@@ -132,7 +132,6 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   margin-top: 10px;
   height: 100%;
   row-gap: 10px;
-  overflow: auto;
   margin-bottom: 10px;
 }
 
@@ -184,8 +183,9 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 
 .weather {
   display: flex;
-  flex-direction: column;
-  background-color: white;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: lightblue;
 }
 
 .trip-info {
@@ -197,7 +197,7 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 
 /* Set the size of the div element that contains the map */
 #map {
-  height: 150px;
+  height: 200px;
   /* The height is 400 pixels */
   width: 100%;
   /* The width is the width of the web page */

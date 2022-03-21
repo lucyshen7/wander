@@ -129,8 +129,8 @@ export const ViewTrip: React.FC<Props> = ({
           Hotel: {tripObj && tripObj.hotel_name},{" "}
           {tripObj && tripObj.hotel_address}
         </span>
+        <Map />
       </div>
-      <Map />
 
       <div className="weather">
         <span>Current Weather</span>
