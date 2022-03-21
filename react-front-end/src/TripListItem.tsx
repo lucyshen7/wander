@@ -53,7 +53,7 @@ export const TripListItem: React.FC<Props> = ({
 
   // Declare TripListItem as a functional component (React.FC) and pass Props as a generic
   return (
-    <ListItem sx={{ bgcolor: "#eaeaea" }}>
+    <ListItem className="trip-list-item" sx={{ bgcolor: "#eaeaea" }}>
       <div className="trip-list">
         <img src={photo} alt="trip_photo" className="trip-photo" />
         <span>

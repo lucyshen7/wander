@@ -22,6 +22,8 @@ import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
 
+import { Map } from "./Map";
+
 interface Props {
   trip: Trip["trip_id"];
   closeView: CloseView;
@@ -123,14 +125,16 @@ export const ViewTrip: React.FC<Props> = ({
         </Button>
       </div>
       <div className="trip-info">
-        Hotel: {tripObj && tripObj.hotel_name},{" "}
-        {tripObj && tripObj.hotel_address}
-        <div>Map</div>
+        <span>
+          Hotel: {tripObj && tripObj.hotel_name},{" "}
+          {tripObj && tripObj.hotel_address}
+        </span>
       </div>
+      <Map />
 
       <div className="weather">
-        <span>Weather</span>
-        <span>Current Temp: {weather.temp} °C</span>
+        <span>Current Weather</span>
+        <span>Temp: {weather.temp} °C</span>
         <span>Feels Like: {weather.feelsLike} °C</span>
         <span>Desc: {weather.desc}</span>
       </div>

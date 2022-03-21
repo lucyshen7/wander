@@ -9,7 +9,7 @@ VALUES ('Miami', 'Florida', 'USA', 'https://www.planetware.com/wpimages/2020/06/
 
 INSERT INTO trips (destination_id, hotel_name, hotel_address, start_date, end_date, flight_cost, hotel_cost, created_at)
 VALUES (1, 'W Miami', '485 Brickell Ave, Miami, FL 33131, United States', '03-20-2022', '03-27-2022', 120000, 70000, '03-05-2022'),
-(2, 'Hotel Granvia Kyoto', '〒600-8216 Kyoto, Shimogyo Ward, Higashishiokojicho, 901番地 内 Kyoto Station Building', '04-10-2022', '04-25-2022', 80000, 100000, '03-14-2022');
+(2, 'Shinjuku Granbell Hotel', '2 Chome-14-5 Kabukicho, Shinjuku City, Tokyo 160-0021, Japan', '04-10-2022', '04-25-2022', 80000, 100000, '03-14-2022');
 
 INSERT INTO activities (trip_id, date, activity_name, activity_address, type, cost)
 VALUES (2, '04-12-2022', 'Fushimi Inari Shrine', '68 Fukakusa Yabunouchicho, Fushimi Ward, Kyoto', 'Shrine', 325),

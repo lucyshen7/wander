@@ -144,7 +144,6 @@ function App() {
             addActivity={addActivity}
             deleteActivity={deleteActivity}
             trips={trips}
-            // getWeather={getWeather}
           />
         )}
       </Container>

@@ -81,6 +81,10 @@ form.add-todo {
   font-size: 16px;
 }
 
+.trip-list-item {
+  width: 100%;
+}
+
 .trip-photo {
   width: 180px;
   height: auto;
@@ -99,6 +103,7 @@ form.add-todo {
   background-color: rgba(234, 234, 234, 0.726);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  overflow: auto;
 }
 
 div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiContainer-root {
@@ -186,4 +191,14 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 .trip-info {
   background: cornsilk;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Set the size of the div element that contains the map */
+#map {
+  height: 150px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
 }
