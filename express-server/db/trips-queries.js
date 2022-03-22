@@ -10,16 +10,6 @@ const getTrips = () => {
     });
 };
 
-// const updateTrip = (complete, id) => {
-//   return db.query(`UPDATE trips SET complete = $1 WHERE id = $2;`, [complete, id])
-//     .then((res) => {
-//       return res.rows;
-//     })
-//     .catch((err) => {
-//       console.log('DB error updating todo: ' + err.message);
-//     });
-// };
-
 const addTrip = (destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost) => {
   return db.query(`INSERT INTO trips (destination_id, hotel_name, hotel_address, start_date, end_date, flight_cost, hotel_cost, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`, [destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost, new Date()])
     .then((res) => {
