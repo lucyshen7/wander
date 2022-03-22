@@ -68,6 +68,7 @@ export const ViewTrip: React.FC<Props> = ({
 
   const city = tripObj?.city;
   const country = tripObj?.country;
+  const hotel = tripObj?.hotel_name;
 
   useEffect(() => {
     axios
@@ -129,7 +130,7 @@ export const ViewTrip: React.FC<Props> = ({
           Hotel: {tripObj && tripObj.hotel_name},{" "}
           {tripObj && tripObj.hotel_address}
         </span>
-        <Map />
+        <Map cityName={city} activities={activities} hotelName={hotel} />
       </div>
 
       <div className="weather">

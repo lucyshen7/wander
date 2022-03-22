@@ -7,21 +7,20 @@ const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
 
 Geocode.setApiKey(`${mapAPIkey}`);
 
-export const Map: React.FC = () => {
-  const [marker, setMarker] = useState({ lat: 0, lng: 0 });
+interface Props {
+  cityName: Trip["city"];
+  activities: Activity[];
+  hotelName: Trip["hotel_name"];
+}
+
+export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
+  const [markers, setMarkers] = useState([{ lat: 0, lng: 0 }]);
+  const [city, setCity] = useState({ lat: 0, lng: 0 });
+  const [hotel, setHotel] = useState({ lat: 0, lng: 0 });
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAP_API_KEY as any,
   });
-
-  const containerStyle = {
-    width: "100%",
-    height: "100%",
-  };
-  const center = {
-    lat: 35.6938,
-    lng: 139.7034,
-  };
 
   const getLat = async (address: string) => {
     try {
@@ -44,14 +43,45 @@ export const Map: React.FC = () => {
   };
 
   useEffect(() => {
-    const showMarker = async (address: string) => {
-      setMarker({
-        lat: await getLat(address),
-        lng: await getLng(address),
+    const showMarker = async (location: string) => {
+      setMarkers([
+        ...markers,
+        {
+          lat: await getLat(location),
+          lng: await getLng(location),
+        },
+      ]);
+    };
+    activities &&
+      activities.forEach((activity) => {
+        showMarker(activity.activity_address);
+      });
+
+    const showHotel = async (location: string) => {
+      setHotel({
+        lat: await getLat(location),
+        lng: await getLng(location),
       });
     };
-    showMarker("Shibuya Crossing");
-  }, []);
+    hotelName && showHotel(hotelName);
+
+    const showCity = async (location: string) => {
+      setCity({
+        lat: await getLat(location),
+        lng: await getLng(location),
+      });
+    };
+    showCity(cityName);
+  }, [activities, hotelName, cityName]);
+
+  const containerStyle = {
+    width: "100%",
+    height: "100%",
+  };
+  const center = {
+    lat: city.lat,
+    lng: city.lng,
+  };
 
   if (loadError) return <>'Error loading maps'</>;
   if (!isLoaded) return <>'Loading maps'</>;
@@ -61,9 +91,10 @@ export const Map: React.FC = () => {
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
         <Marker position={{ lat: 35.6967, lng: 139.7056 }}></Marker>
         <Marker position={{ lat: 34.9671, lng: 135.7727 }}></Marker>
-        {marker && (
+        {markers.map((marker) => (
           <Marker position={{ lat: marker.lat, lng: marker.lng }}></Marker>
-        )}
+        ))}
+        <Marker position={{ lat: hotel.lat, lng: hotel.lng }}></Marker>
       </GoogleMap>
     </div>
   );
