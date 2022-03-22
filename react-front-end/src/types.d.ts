@@ -11,6 +11,8 @@ interface Trip {
   start_date: date;
   end_date: date;
   photo: text;
+  hotel_cost: number;
+  flight_cost: number;
 }
 
 interface Activity {

@@ -13,10 +13,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import {
+  Card,
+  CardContent,
   FormControl,
   InputAdornment,
   InputLabel,
   OutlinedInput,
+  Typography,
 } from "@mui/material";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
@@ -111,6 +114,11 @@ export const ViewTrip: React.FC<Props> = ({
     });
   };
 
+  let total = 0;
+  activities.forEach((a) => {
+    total += a.cost;
+  });
+
   return (
     <div className="view-trip">
       <div className="trip-header">
@@ -125,19 +133,48 @@ export const ViewTrip: React.FC<Props> = ({
           Close
         </Button>
       </div>
-      <div className="trip-info">
-        <span>
-          Hotel: {tripObj && tripObj.hotel_name},{" "}
-          {tripObj && tripObj.hotel_address}
-        </span>
-        <Map cityName={city} activities={activities} hotelName={hotel} />
+
+      <div className="info-box">
+        <Card variant="outlined" sx={{ display: "flex" }}>
+          <CardContent id="hotel-flight-details">
+            <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+              <div>
+                Hotel: {tripObj && tripObj.hotel_name},{" "}
+                {tripObj && tripObj.hotel_address}{" "}
+              </div>
+              <div>Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD</div>
+              <div>
+                Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
+              </div>
+              <div>
+                Total: $
+                {tripObj && (tripObj.flight_cost + tripObj.hotel_cost) / 100}{" "}
+                CAD
+              </div>
+            </Typography>
+          </CardContent>
+        </Card>
+
+        <Card variant="outlined" sx={{ display: "flex" }}>
+          <CardContent>
+            <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+              Weather
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <span>Actual: {weather.temp} °C</span>
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <span>Feels Like: {weather.feelsLike} °C</span>
+            </Typography>
+            <Typography variant="body2">
+              <span>{weather.desc}</span>
+            </Typography>
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="weather">
-        <span>Current Weather</span>
-        <span>Temp: {weather.temp} °C</span>
-        <span>Feels Like: {weather.feelsLike} °C</span>
-        <span>Desc: {weather.desc}</span>
+      <div className="trip-info">
+        <Map cityName={city} activities={activities} hotelName={hotel} />
       </div>
 
       <div className="activities-container">
@@ -168,6 +205,10 @@ export const ViewTrip: React.FC<Props> = ({
           <Button variant="contained" onClick={handleClickOpen}>
             Add Activity
           </Button>
+
+          <Card>
+            Trip Cost: ${tripObj && (tripObj.flight_cost + tripObj.hotel_cost + total) / 100}{" "} CAD
+          </Card>
 
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Add an Activity</DialogTitle>

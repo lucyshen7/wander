@@ -92,7 +92,7 @@ export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
         <Marker position={{ lat: 35.6967, lng: 139.7056 }}></Marker>
         <Marker position={{ lat: 34.9671, lng: 135.7727 }}></Marker>
         {markers.map((marker) => (
-          <Marker position={{ lat: marker.lat, lng: marker.lng }}></Marker>
+          <Marker key={marker.lat} position={{ lat: marker.lat, lng: marker.lng }}></Marker>
         ))}
         <Marker position={{ lat: hotel.lat, lng: hotel.lng }}></Marker>
       </GoogleMap>
