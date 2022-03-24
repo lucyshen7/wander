@@ -1,7 +1,17 @@
+import React, { useEffect, useState } from "react";
 import { Button, Card } from "@mui/material";
-import React from "react";
 import "./App.scss";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Geocode from "react-geocode";
+import axios from "axios";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import CloudIcon from "@mui/icons-material/Cloud";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+
+const APIkey = process.env.REACT_APP_API_KEY;
+const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
+
+Geocode.setApiKey(`${mapAPIkey}`);
 
 interface Props {
   activity: Activity;
@@ -9,6 +19,91 @@ interface Props {
 }
 
 export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
+  const [forecast, setForecast] = useState([
+    {
+      date: "",
+      temp: 0,
+      weather: "",
+    },
+  ]);
+
+  const [coords, setCoords] = useState({
+    lat: 0,
+    lng: 0,
+  });
+
+  const getLat = async (address: string) => {
+    try {
+      const response = await Geocode.fromAddress(address);
+      const { lat } = response.results[0].geometry.location;
+      return lat;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  const getLng = async (address: string) => {
+    try {
+      const response = await Geocode.fromAddress(address);
+      const { lng } = response.results[0].geometry.location;
+      return lng;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  useEffect(() => {
+    const getGeocode = async (address: string) => {
+      setCoords({
+        ...coords,
+        lat: await getLat(activity.activity_address),
+        lng: await getLng(activity.activity_address),
+      });
+    };
+    activity && getGeocode(activity.activity_address);
+
+    axios
+      .get(
+        `        
+        https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${APIkey}
+        `
+      )
+      .then((res) => {
+        console.log("ressss", res.data);
+        return res.data;
+      })
+      .then((data) => {
+        const weatherArr = [] as any;
+
+        data.daily.map(
+          (x: {
+            dt: number;
+            temp: { day: number };
+            weather: [{ main: string }];
+          }) => {
+            const date = new Date(x.dt * 1000);
+            const formatted =
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate();
+            const temp = Math.round(x.temp.day - 273.15);
+            weatherArr.push({
+              date: formatted,
+              temp: temp,
+              weather: x.weather[0].main,
+            });
+            setForecast([...weatherArr]);
+          }
+        );
+        console.log("activity date", activity.date, typeof activity.date);
+      })
+      .catch((err) => {
+        console.log("err fetching weather", err.message);
+      });
+  }, []);
+
   const months = [
     "January",
     "February",
@@ -41,8 +136,27 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
 
   const cost = (activity.cost / 100).toFixed(2);
 
+  const activityDate =
+    date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + day;
+  const weatherObj =
+    forecast.length > 2 && forecast.find((x) => x.date === activityDate);
+
   return (
     <Card className="activity">
+      {(weatherObj && weatherObj.weather) === ("Clouds" || "Rain") ? (
+        <CloudIcon />
+      ) : (weatherObj && weatherObj.weather) === "Sun" ? (
+        <WbSunnyIcon />
+      ) : (
+        <ThermostatIcon />
+      )}
+      {weatherObj ? (
+        <span>
+          {weatherObj.temp} °C, {weatherObj.weather}{" "}
+        </span>
+      ) : (
+        <span>n/a</span>
+      )}
       <span>
         {weekday}, {month}, {day}
       </span>

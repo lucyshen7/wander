@@ -145,6 +145,7 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   min-height: 40px;
   align-items: center;
   align-content: flex-start;
+  font-size: medium;
 }
 
 .add-activity-btn {
@@ -218,6 +219,11 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 }
 
 #hotel-flight-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-col {
   display: flex;
   flex-direction: column;
 }

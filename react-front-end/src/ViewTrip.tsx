@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.scss";
 import { ViewTripItem } from "./ViewTripItem";
 import { TotalCost } from "./TotalCost";
+import { Map } from "./Map";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -24,8 +25,6 @@ import {
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
-
-import { Map } from "./Map";
 
 interface Props {
   trip: Trip["trip_id"];
@@ -68,7 +67,6 @@ export const ViewTrip: React.FC<Props> = ({
     return tripObj;
   };
   const tripObj = getTripById(trips, trip);
-
   const city = tripObj?.city;
   const country = tripObj?.country;
   const hotel = tripObj?.hotel_name;
@@ -168,15 +166,16 @@ export const ViewTrip: React.FC<Props> = ({
         <Card variant="outlined" sx={{ display: "flex" }}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-              Weather
+              <b>Current Weather</b>
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            <Typography
+              className="flex-col"
+              sx={{ fontSize: 14 }}
+              color="text.primary"
+              gutterBottom
+            >
               <span>Actual: {weather.temp} °C</span>
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
               <span>Feels Like: {weather.feelsLike} °C</span>
-            </Typography>
-            <Typography variant="body2">
               <span>{weather.desc}</span>
             </Typography>
           </CardContent>
