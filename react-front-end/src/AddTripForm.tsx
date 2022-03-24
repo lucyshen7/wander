@@ -62,7 +62,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip }) => {
         <DialogTitle>Add a Trip</DialogTitle>
         <DialogContent className="dialog-fields">
           <DialogContentText>
-            Please fill out the trip details below.
+            Add trip details below.
           </DialogContentText>
           <Box sx={{ minWidth: 120, marginTop: "20px", marginBottom: "5px" }}>
             <FormControl fullWidth>

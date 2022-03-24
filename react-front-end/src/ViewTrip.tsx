@@ -151,6 +151,16 @@ export const ViewTrip: React.FC<Props> = ({
                 {tripObj && (tripObj.flight_cost + tripObj.hotel_cost) / 100}{" "}
                 CAD
               </div>
+              <div>Activities Cost: ${total / 100} CAD</div>
+              <div>
+                <b>
+                  Total Trip Cost: $
+                  {tripObj &&
+                    (tripObj.flight_cost + tripObj.hotel_cost + total) /
+                      100}{" "}
+                  CAD
+                </b>
+              </div>
             </Typography>
           </CardContent>
         </Card>
@@ -178,7 +188,7 @@ export const ViewTrip: React.FC<Props> = ({
       </div>
 
       <div className="activities-container">
-        Itinerary
+        My Activities:
         {activities.length === 0 ? (
           <div className="alert-msg">
             <Alert severity="info" sx={{ fontFamily: "Comfortaa" }}>
@@ -205,10 +215,6 @@ export const ViewTrip: React.FC<Props> = ({
           <Button variant="contained" onClick={handleClickOpen}>
             Add Activity
           </Button>
-
-          <Card>
-            Trip Cost: ${tripObj && (tripObj.flight_cost + tripObj.hotel_cost + total) / 100}{" "} CAD
-          </Card>
 
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Add an Activity</DialogTitle>

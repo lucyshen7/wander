@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import React from "react";
 import "./App.scss";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -42,7 +42,7 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
   const cost = (activity.cost / 100).toFixed(2);
 
   return (
-    <div className="activity">
+    <Card className="activity">
       <span>
         {weekday}, {month}, {day}
       </span>
@@ -57,6 +57,6 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
       >
         <DeleteIcon color="primary" />
       </Button>
-    </div>
+    </Card>
   );
 };
