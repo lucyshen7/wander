@@ -292,7 +292,8 @@ export const ViewTrip: React.FC<Props> = ({
               color="text.primary"
               gutterBottom
             >
-              <b>City Facts</b>
+              <b>Facts</b>
+              <span>{city}, {tripObj && tripObj.province}, {country}</span>
               <span>Population: {pop && pop}</span>
               <span>Timezone: {zone && zone}</span>
               <span>Current Time: {currentTime && currentTime}</span>

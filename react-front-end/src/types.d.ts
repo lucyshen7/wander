@@ -13,6 +13,7 @@ interface Trip {
   photo: text;
   hotel_cost: number;
   flight_cost: number;
+  province: text;
 }
 
 interface Activity {
