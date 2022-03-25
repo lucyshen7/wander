@@ -37,6 +37,7 @@ interface Props {
 }
 
 const APIkey = process.env.REACT_APP_API_KEY;
+const GEOkey = process.env.REACT_APP_GEO_KEY;
 
 export const ViewTrip: React.FC<Props> = ({
   trip,
@@ -160,8 +161,7 @@ export const ViewTrip: React.FC<Props> = ({
                 url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${cityId}`,
                 headers: {
                   "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-                  "X-RapidAPI-Key":
-                    "3e955c2b12msh460c3550ff36845p1aa511jsn609e4ec5566b",
+                  "X-RapidAPI-Key": `${GEOkey}`,
                 },
               };
               axios
@@ -193,12 +193,12 @@ export const ViewTrip: React.FC<Props> = ({
       });
 
     // get current time
-    const options:object = {
+    const options: object = {
       method: "GET",
       url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${cityId}/time`,
       headers: {
         "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-        "X-RapidAPI-Key": "3e955c2b12msh460c3550ff36845p1aa511jsn609e4ec5566b",
+        "X-RapidAPI-Key": `${GEOkey}`,
       },
     };
 
