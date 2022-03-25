@@ -25,6 +25,7 @@ import {
 } from "@mui/material";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
 import axios from "axios";
 
 interface Props {
@@ -402,6 +403,7 @@ export const ViewTrip: React.FC<Props> = ({
       <div className="add-activity">
         <div>
           <Button variant="contained" onClick={handleClickOpen}>
+            <AddLocationIcon />
             Add Activity
           </Button>
 

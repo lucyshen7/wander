@@ -168,7 +168,10 @@ function App() {
         <div className="todo-box">
           <h1 className="title">Upcoming Trips</h1>
           <TripList trips={trips} viewTrip={viewTrip} visible={visible} />
-          <AddTripForm addTrip={addTrip} destinations={dest} />
+          <div className="add-forms">
+            <AddDestForm addDest={addDest} />
+            <AddTripForm addTrip={addTrip} destinations={dest} />
+          </div>
         </div>
         {visible && (
           <ViewTrip
@@ -180,7 +183,6 @@ function App() {
             trips={trips}
           />
         )}
-        <AddDestForm addDest={addDest} />
       </Container>
     </>
   );

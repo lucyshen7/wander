@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 
 interface Props {
   addDest: AddDest;
@@ -44,12 +45,15 @@ export const AddDestForm: React.FC<Props> = ({ addDest }) => {
   return (
     <div className="add-Dest-form">
       <Button variant="contained" onClick={handleClickOpen}>
+        <AirplanemodeActiveIcon />
         Add Destination
       </Button>{" "}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add a Destination</DialogTitle>
         <DialogContent className="dialog-fields">
-          <DialogContentText sx={{ paddingBottom: "10px" }}>Add destination details below.</DialogContentText>
+          <DialogContentText sx={{ paddingBottom: "10px" }}>
+            Add destination details below.
+          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"

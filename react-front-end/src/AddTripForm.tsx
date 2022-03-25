@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import "./App.scss";
 import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
 
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -11,6 +10,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
+import LuggageIcon from "@mui/icons-material/Luggage";
 
 import {
   FormControl,
@@ -19,7 +19,6 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import Select from "@mui/material/Select";
-import axios from "axios";
 
 interface Props {
   addTrip: AddTrip;
@@ -58,8 +57,9 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
   };
 
   return (
-    <div className="add-trip-form">
+    <>
       <Button variant="contained" onClick={handleClickOpen}>
+        <LuggageIcon />
         Add Trip
       </Button>{" "}
       <Dialog open={open} onClose={handleClose}>
@@ -203,6 +203,6 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };

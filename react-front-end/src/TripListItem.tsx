@@ -2,6 +2,7 @@ import React from "react";
 import ListItem from "@mui/material/ListItem";
 import "./App.scss";
 import { Button } from "@mui/material";
+import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 
 interface Props {
   id: Trip["trip_id"];
@@ -53,7 +54,10 @@ export const TripListItem: React.FC<Props> = ({
 
   // Declare TripListItem as a functional component (React.FC) and pass Props as a generic
   return (
-    <ListItem className="trip-list-item" sx={{ bgcolor: "#eaeaea", borderRadius: 1 }}>
+    <ListItem
+      className="trip-list-item"
+      sx={{ bgcolor: "#eaeaea", borderRadius: 1 }}
+    >
       <div className="trip-list">
         <img src={photo} alt="trip_photo" className="trip-photo" />
         <span>
@@ -70,6 +74,7 @@ export const TripListItem: React.FC<Props> = ({
           disabled={visible}
         >
           View
+          <SavedSearchIcon />
         </Button>
       </div>
     </ListItem>
