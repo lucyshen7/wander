@@ -55,15 +55,10 @@ export const ViewTrip: React.FC<Props> = ({
     low: 0,
   });
 
-  const [zone, setZone] = useState('');
-
-  const [facts, setFacts] = useState({
-    currentTime: "",
-    currency: "",
-    population: 0,
-    cityId: 0,
-  });
-
+  const [zone, setZone] = useState("");
+  const [pop, setPop] = useState(0);
+  const [currentTime, setCurrentTime] = useState("");
+  const [cityId, setCityId] = useState(0);
   const [coords, setCoords] = useState({
     lat: 0,
     lng: 0,
@@ -156,10 +151,7 @@ export const ViewTrip: React.FC<Props> = ({
               const pageId = pageNum[0].pageid;
               const cityId =
                 res.data.query.pages[pageId].pageprops.wikibase_item;
-              setFacts({
-                ...facts,
-                cityId: cityId,
-              });
+              setCityId(cityId);
               return cityId;
             })
             .then((cityId) => {
@@ -176,10 +168,7 @@ export const ViewTrip: React.FC<Props> = ({
                 .request(options)
                 .then((res) => {
                   const pop = res.data.data.population.toLocaleString();
-                  setFacts({
-                    ...facts,
-                    population: pop,
-                  });
+                  setPop(pop);
                 })
                 .catch(function (error) {
                   console.error(error);
@@ -201,6 +190,25 @@ export const ViewTrip: React.FC<Props> = ({
       })
       .catch((err) => {
         console.log("err fetching weather", err.message);
+      });
+
+    // get current time
+    const options:object = {
+      method: "GET",
+      url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${cityId}/time`,
+      headers: {
+        "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
+        "X-RapidAPI-Key": "3e955c2b12msh460c3550ff36845p1aa511jsn609e4ec5566b",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
       });
   }, [city, country, coords.lat, coords.lng]);
 
@@ -246,7 +254,7 @@ export const ViewTrip: React.FC<Props> = ({
       </div>
 
       <div className="info-box">
-        <Card variant="outlined" sx={{ width: "50%" }}>
+        <Card variant="outlined" sx={{ width: "40%" }}>
           <CardContent id="hotel-flight-details">
             <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
               <div>Hotel Name: {tripObj && tripObj.hotel_name}</div>
@@ -274,7 +282,7 @@ export const ViewTrip: React.FC<Props> = ({
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ width: "25%" }}>
+        <Card variant="outlined" sx={{ width: "35%" }}>
           <CardContent>
             <Typography
               className="flex-col"
@@ -284,9 +292,9 @@ export const ViewTrip: React.FC<Props> = ({
             >
               <b>Facts</b>
               <span>Timezone: {zone && zone}</span>
-              <span>Current Time: {facts.currentTime}</span>
-              <span>Currency: {facts.currency}</span>
-              <span>Population: {facts.population}</span>
+              <span>Current Time: {currentTime && currentTime}</span>
+              <span>Currency: TBD</span>
+              <span>Population: {pop && pop}</span>
             </Typography>
           </CardContent>
         </Card>
