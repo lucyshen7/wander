@@ -19,14 +19,7 @@ interface Props {
 }
 
 export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
-  const [forecast, setForecast] = useState([
-    {
-      date: "",
-      temp: 0,
-      weather: "",
-    },
-  ]);
-
+  const [forecast, setForecast] = useState([] as any);
   const [coords, setCoords] = useState({
     lat: 0,
     lng: 0,
@@ -62,14 +55,16 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
     };
     activity && getGeocode(activity.activity_address);
 
-    axios
+    axios // fetch weather
       .get(
         `        
         https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${APIkey}
         `
       )
       .then((res) => {
-        return res.data;
+        console.log("res.data", res.data);
+        const result = res.data;
+        return result;
       })
       .then((data) => {
         const weatherArr = [] as any;
@@ -92,16 +87,14 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
               temp: temp,
               weather: x.weather[0].main,
             });
-            setForecast([...forecast, weatherArr]);
-
-            // console.log({forecast});
+            setForecast(weatherArr);
           }
         );
       })
       .catch((err) => {
         console.log("err fetching weather", err.message);
       });
-  }, [activity]);
+  }, []);
 
   const months = [
     "January",
@@ -137,8 +130,14 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
 
   const activityDate =
     date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + day;
-  const weatherObj =
-    forecast.length > 2 && forecast.find((x) => x.date === activityDate);
+  // console.log("activityDate", activityDate);
+
+  const weatherObj = forecast.find(
+    (x: { date: string; temp: number; weather: string }) =>
+      x.date === activityDate
+  );
+  console.log("forecast", forecast);
+  console.log("weatherObj", weatherObj);
 
   return (
     <Card className="activity">

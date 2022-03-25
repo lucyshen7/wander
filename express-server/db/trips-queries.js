@@ -11,7 +11,7 @@ const getTrips = () => {
 };
 
 const addTrip = (destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost) => {
-  return db.query(`INSERT INTO trips (destination_id, hotel_name, hotel_address, start_date, end_date, flight_cost, hotel_cost, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`, [destinationId, hotelName, hotelAddress, startDate, endDate, hotelCost, flightCost, new Date()])
+  return db.query(`INSERT INTO trips (destination_id, hotel_name, hotel_address, start_date, end_date, flight_cost, hotel_cost, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;`, [destinationId, hotelName, hotelAddress, startDate, endDate, (hotelCost * 100), (flightCost * 100), new Date()])
     .then((res) => {
       console.log('res.rows', res.rows);
       return res.rows;

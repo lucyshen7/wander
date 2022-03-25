@@ -228,7 +228,6 @@ export const ViewTrip: React.FC<Props> = ({
         );
         const pageId = pageNum[0].pageid;
         const countryId = res.data.query.pages[pageId].pageprops.wikibase_item;
-        // console.log({countryId});
         return countryId;
       })
       .then((countryId) => {
