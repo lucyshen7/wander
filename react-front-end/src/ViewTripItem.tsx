@@ -69,7 +69,6 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
         `
       )
       .then((res) => {
-        console.log("ressss", res.data);
         return res.data;
       })
       .then((data) => {
@@ -97,12 +96,11 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
             setForecast([...weatherArr]);
           }
         );
-        console.log("activity date", activity.date, typeof activity.date);
       })
       .catch((err) => {
         console.log("err fetching weather", err.message);
       });
-  }, []);
+  }, [activity]);
 
   const months = [
     "January",

@@ -3,6 +3,7 @@ import "./App.scss";
 import { ViewTripItem } from "./ViewTripItem";
 import { TotalCost } from "./TotalCost";
 import { Map } from "./Map";
+import Geocode from "react-geocode";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -50,7 +51,46 @@ export const ViewTrip: React.FC<Props> = ({
     temp: 0,
     feelsLike: 0,
     desc: "",
+    high: 0,
+    low: 0,
   });
+
+  const [zone, setZone] = useState('');
+
+  const [facts, setFacts] = useState({
+    currentTime: "",
+    currency: "",
+    population: 0,
+    cityId: 0,
+  });
+
+  const [coords, setCoords] = useState({
+    lat: 0,
+    lng: 0,
+  });
+
+  const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
+  Geocode.setApiKey(`${mapAPIkey}`);
+
+  const getLat = async (address: string) => {
+    try {
+      const response = await Geocode.fromAddress(address);
+      const { lat } = response.results[0].geometry.location;
+      return lat;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  const getLng = async (address: string) => {
+    try {
+      const response = await Geocode.fromAddress(address);
+      const { lng } = response.results[0].geometry.location;
+      return lng;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
 
   const defaultValues = {
     // an obj initialized with properties for each form value
@@ -87,7 +127,77 @@ export const ViewTrip: React.FC<Props> = ({
           temp: temp,
           feelsLike: feelsLike,
           desc: desc,
+          high: Math.round(data.main.temp_max - 273.15),
+          low: Math.round(data.main.temp_min - 273.15),
         });
+      })
+      .then(() => {
+        const time = new Date();
+        const timestamp = Number(time) / 1000;
+
+        const getGeocode = async (address: string) => {
+          setCoords({
+            ...coords,
+            lat: await getLat(city),
+            lng: await getLng(city),
+          });
+        };
+        city && getGeocode(city);
+
+        city &&
+          axios
+            .get(
+              `https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&format=json&titles=${city}`
+            )
+            .then((res) => {
+              const pageNum = Object.keys(res.data.query.pages).map(
+                (key) => res.data.query.pages[key]
+              );
+              const pageId = pageNum[0].pageid;
+              const cityId =
+                res.data.query.pages[pageId].pageprops.wikibase_item;
+              setFacts({
+                ...facts,
+                cityId: cityId,
+              });
+              return cityId;
+            })
+            .then((cityId) => {
+              const options: object = {
+                method: "GET",
+                url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${cityId}`,
+                headers: {
+                  "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
+                  "X-RapidAPI-Key":
+                    "3e955c2b12msh460c3550ff36845p1aa511jsn609e4ec5566b",
+                },
+              };
+              axios
+                .request(options)
+                .then((res) => {
+                  const pop = res.data.data.population.toLocaleString();
+                  setFacts({
+                    ...facts,
+                    population: pop,
+                  });
+                })
+                .catch(function (error) {
+                  console.error(error);
+                });
+            });
+
+        axios
+          .get(
+            `
+        https://maps.googleapis.com/maps/api/timezone/json?location=${coords.lat}%2C${coords.lng}&timestamp=${timestamp}&key=${mapAPIkey}
+        `
+          )
+          .then((res) => {
+            return res.data.timeZoneName;
+          })
+          .then((data) => {
+            setZone(data);
+          });
       })
       .catch((err) => {
         console.log("err fetching weather", err.message);
@@ -118,7 +228,10 @@ export const ViewTrip: React.FC<Props> = ({
   });
 
   return (
-    <div className="view-trip">
+    <Card
+      sx={{ overflow: "overlay", bgcolor: "rgba(234, 234, 234, 0.726)" }}
+      className="view-trip"
+    >
       <div className="trip-header">
         {tripObj && tripObj.city} Trip Details:
         <Button
@@ -133,13 +246,11 @@ export const ViewTrip: React.FC<Props> = ({
       </div>
 
       <div className="info-box">
-        <Card variant="outlined" sx={{ display: "flex" }}>
+        <Card variant="outlined" sx={{ width: "50%" }}>
           <CardContent id="hotel-flight-details">
             <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-              <div>
-                Hotel: {tripObj && tripObj.hotel_name},{" "}
-                {tripObj && tripObj.hotel_address}{" "}
-              </div>
+              <div>Hotel Name: {tripObj && tripObj.hotel_name}</div>
+              <div>Hotel Address: {tripObj && tripObj.hotel_address} </div>
               <div>Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD</div>
               <div>
                 Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
@@ -163,7 +274,24 @@ export const ViewTrip: React.FC<Props> = ({
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ display: "flex" }}>
+        <Card variant="outlined" sx={{ width: "25%" }}>
+          <CardContent>
+            <Typography
+              className="flex-col"
+              sx={{ fontSize: 14 }}
+              color="text.primary"
+              gutterBottom
+            >
+              <b>Facts</b>
+              <span>Timezone: {zone}</span>
+              <span>Current Time: {facts.currentTime}</span>
+              <span>Currency: {facts.currency}</span>
+              <span>Population: {facts.population}</span>
+            </Typography>
+          </CardContent>
+        </Card>
+
+        <Card variant="outlined" sx={{ display: "flex", width: "25%" }}>
           <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
               <b>Current Weather</b>
@@ -176,6 +304,8 @@ export const ViewTrip: React.FC<Props> = ({
             >
               <span>Actual: {weather.temp} °C</span>
               <span>Feels Like: {weather.feelsLike} °C</span>
+              <span>Low: {weather.low} °C</span>
+              <span>High: {weather.high} °C</span>
               <span>{weather.desc}</span>
             </Typography>
           </CardContent>
@@ -315,6 +445,6 @@ export const ViewTrip: React.FC<Props> = ({
           </Dialog>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };

@@ -4,7 +4,6 @@ import "./App.scss";
 import Geocode from "react-geocode";
 
 const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
-
 Geocode.setApiKey(`${mapAPIkey}`);
 
 interface Props {
