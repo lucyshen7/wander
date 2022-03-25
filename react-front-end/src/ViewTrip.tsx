@@ -202,7 +202,7 @@ export const ViewTrip: React.FC<Props> = ({
       .catch((err) => {
         console.log("err fetching weather", err.message);
       });
-  }, [city, country]);
+  }, [city, country, coords.lat, coords.lng]);
 
   const [formValues, setFormValues] = useState(defaultValues);
 
@@ -283,7 +283,7 @@ export const ViewTrip: React.FC<Props> = ({
               gutterBottom
             >
               <b>Facts</b>
-              <span>Timezone: {zone}</span>
+              <span>Timezone: {zone && zone}</span>
               <span>Current Time: {facts.currentTime}</span>
               <span>Currency: {facts.currency}</span>
               <span>Population: {facts.population}</span>
