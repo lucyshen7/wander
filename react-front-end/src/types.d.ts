@@ -43,4 +43,6 @@ type AddActivity = (tripId: number, date: string, activityName: string, activity
 
 type AddTrip = (destinationId: number, hotelName: string, hotelAddress: string, startDate: string, endDate: string, hotelCost: number, flightCost: number) => void;
 
+type AddDest = (city: string, province: string, country: string, photo: string) => void;
+
 type DeleteActivity = (activityId: number) => void;

@@ -21,6 +21,17 @@ const addTrip = (destinationId, hotelName, hotelAddress, startDate, endDate, hot
     });
 };
 
+const addDest = (city, province, country, photo) => {
+  return db.query(`INSERT INTO destinations (city, province, country, photo) VALUES ($1, $2, $3, $4) RETURNING *;`, [city, province, country, photo])
+    .then((res) => {
+      console.log('res.rows', res.rows);
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log('DB error adding destination: ' + err.message);
+    });
+};
+
 const getActivities = (id) => {
   return db.query(`SELECT * FROM activities a JOIN trips t ON t.trip_id = a.trip_id JOIN destinations d ON d.destination_id = t.destination_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
     .then((res) => {
@@ -59,4 +70,5 @@ module.exports = {
   getActivities,
   addActivity,
   deleteActivity,
+  addDest,
 };

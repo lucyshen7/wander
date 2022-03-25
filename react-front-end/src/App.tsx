@@ -6,6 +6,7 @@ import axios from "axios";
 import "./App.scss";
 import { ViewTrip } from "./ViewTrip";
 import { AddTripForm } from "./AddTripForm";
+import { AddDestForm } from "./AddDestForm";
 
 const initialTrips: Trip[] = [];
 
@@ -83,6 +84,25 @@ function App() {
       });
   };
 
+  const addDest = (
+    city: string,
+    province: string,
+    country: string,
+    photo: string
+  ) => {
+    axios
+      .post("http://localhost:8080/api/trips/add/dest", {
+        city: city,
+        province: province,
+        country: country,
+        photo: photo
+      })
+      .then((res) => {
+        const dest = res.data.dest[0];
+        console.log('added! dest', dest);
+      });
+  };
+
   const addActivity = (
     tripId: number,
     date: string,
@@ -146,6 +166,7 @@ function App() {
             trips={trips}
           />
         )}
+        <AddDestForm addDest={addDest} />
       </Container>
     </>
   );
