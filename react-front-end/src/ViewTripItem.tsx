@@ -2,60 +2,56 @@ import React, { useEffect, useState } from "react";
 import { Button, Card } from "@mui/material";
 import "./App.scss";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Geocode from "react-geocode";
 import axios from "axios";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import CloudIcon from "@mui/icons-material/Cloud";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 
 const APIkey = process.env.REACT_APP_API_KEY;
-const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
-
-Geocode.setApiKey(`${mapAPIkey}`);
 
 interface Props {
   activity: Activity;
   deleteActivity: DeleteActivity;
+  coords: {
+    lat: number;
+    lng: number;
+  };
 }
 
-export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+export const ViewTripItem: React.FC<Props> = ({
+  activity,
+  deleteActivity,
+  coords,
+}) => {
   const [forecast, setForecast] = useState([] as any);
-  const [coords, setCoords] = useState({
-    lat: 0,
-    lng: 0,
-  });
-
-  const getLat = async (address: string) => {
-    try {
-      const response = await Geocode.fromAddress(address);
-      const { lat } = response.results[0].geometry.location;
-      return lat;
-    } catch (err: any) {
-      console.log(err.message);
-    }
-  };
-
-  const getLng = async (address: string) => {
-    try {
-      const response = await Geocode.fromAddress(address);
-      const { lng } = response.results[0].geometry.location;
-      return lng;
-    } catch (err: any) {
-      console.log(err.message);
-    }
-  };
 
   useEffect(() => {
-    const getGeocode = async (address: string) => {
-      setCoords({
-        ...coords,
-        lat: await getLat(activity.activity_address),
-        lng: await getLng(activity.activity_address),
-      });
-    };
-    activity && getGeocode(activity.activity_address);
-
-    axios // fetch weather
+    axios
       .get(
         `        
         https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${APIkey}
@@ -96,31 +92,6 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
       });
   }, []);
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
   const date = new Date(activity.date);
   const month = months[date.getMonth()];
   const day = date.getDate();
@@ -130,13 +101,12 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
 
   const activityDate =
     date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + day;
-  // console.log("activityDate", activityDate);
 
   const weatherObj = forecast.find(
     (x: { date: string; temp: number; weather: string }) =>
       x.date === activityDate
   );
-  console.log("forecast", forecast);
+  console.log("forecast", forecast); // remove this once fixed
   console.log("weatherObj", weatherObj);
 
   return (

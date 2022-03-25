@@ -303,22 +303,30 @@ export const ViewTrip: React.FC<Props> = ({
       </div>
 
       <div className="info-box">
-        <Card variant="outlined" sx={{ width: "40%" }}>
+        <Card
+          variant="outlined"
+          sx={{ width: "45%", maxHeight: "200px", overflow: "overlay" }}
+        >
           <CardContent id="hotel-flight-details">
-            <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-              <div>Hotel Name: {tripObj && tripObj.hotel_name}</div>
-              <div>Hotel Address: {tripObj && tripObj.hotel_address} </div>
-              <div>Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD</div>
-              <div>
+            <Typography
+              className="flex-col"
+              sx={{ fontSize: 14 }}
+              color="text.primary"
+              gutterBottom
+            >
+              <span>
+                <b>Trip Summary</b>
+              </span>
+              <span>Hotel Name: {tripObj && tripObj.hotel_name}</span>
+              <span>Hotel Address: {tripObj && tripObj.hotel_address} </span>
+              <span>
+                Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD
+              </span>
+              <span>
                 Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
-              </div>
-              <div>
-                Total: $
-                {tripObj && (tripObj.flight_cost + tripObj.hotel_cost) / 100}{" "}
-                CAD
-              </div>
-              <div>Activities Cost: ${total / 100} CAD</div>
-              <div>
+              </span>
+              <span>Activities Cost: ${total / 100} CAD</span>
+              <span>
                 <b>
                   Total Trip Cost: $
                   {tripObj &&
@@ -326,12 +334,12 @@ export const ViewTrip: React.FC<Props> = ({
                       100}{" "}
                   CAD
                 </b>
-              </div>
+              </span>
             </Typography>
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ width: "35%" }}>
+        <Card variant="outlined" sx={{ width: "30%" }}>
           <CardContent>
             <Typography
               className="flex-col"
@@ -339,14 +347,14 @@ export const ViewTrip: React.FC<Props> = ({
               color="text.primary"
               gutterBottom
             >
-              <b>Facts</b>
+              <b>City Facts</b>
               <span>
                 {city}, {tripObj && tripObj.province}, {country}
               </span>
-              <span>Population: {pop && pop}</span>
+              {pop > 0 && <span>Population: {pop}</span>}
               <span>Timezone: {zone && zone}</span>
-              <span>Current Time: {currentTime && currentTime}</span>
-              <span>Currency: {facts.currency && facts.currency}</span>
+              {currentTime && <span>Current Time: {currentTime}</span>}
+              {facts.currency && <span>Currency: {facts.currency}</span>}
             </Typography>
           </CardContent>
         </Card>
@@ -392,6 +400,7 @@ export const ViewTrip: React.FC<Props> = ({
             key={activity.activity_id}
             activity={activity}
             deleteActivity={deleteActivity}
+            coords={coords}
           />
         ))}
       </div>
@@ -465,6 +474,7 @@ export const ViewTrip: React.FC<Props> = ({
                     <MenuItem value={"Food"}>Food</MenuItem>
                     <MenuItem value={"Museum"}>Museum</MenuItem>
                     <MenuItem value={"Park"}>Park</MenuItem>
+                    <MenuItem value={"Transportation"}>Entertainment</MenuItem>
                     <MenuItem value={"Transportation"}>Transportation</MenuItem>
                     <MenuItem value={"Other"}>Other</MenuItem>
                   </Select>
