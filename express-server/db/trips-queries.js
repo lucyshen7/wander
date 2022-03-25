@@ -32,6 +32,16 @@ const addDest = (city, province, country, photo) => {
     });
 };
 
+const getDest = () => {
+  return db.query(`SELECT * FROM destinations;`)
+    .then((res) => {
+      return res.rows;
+    })
+    .catch((err) => {
+      console.log('DB error fetching destinations: ' + err.message);
+    });
+};
+
 const getActivities = (id) => {
   return db.query(`SELECT * FROM activities a JOIN trips t ON t.trip_id = a.trip_id JOIN destinations d ON d.destination_id = t.destination_id WHERE a.trip_id = $1 ORDER BY date ASC;`, [id])
     .then((res) => {
@@ -71,4 +81,5 @@ module.exports = {
   addActivity,
   deleteActivity,
   addDest,
+  getDest
 };

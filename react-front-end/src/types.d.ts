@@ -30,6 +30,14 @@ interface Activity {
   hotel_address: text;
 }
 
+interface Destination {
+  destination_id: number;
+  city: text;
+  province: text;
+  country: text;
+  photo: text;
+}
+
 interface User {
   name: string;
 }

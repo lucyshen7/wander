@@ -17,6 +17,7 @@ function App() {
   const [visible, setVisible] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState(0);
   const [activities, setActivities] = useState([] as any);
+  const [dest, setDest] = useState([] as any);
 
   useEffect(() => {
     // fetch trips
@@ -25,6 +26,15 @@ function App() {
       .then((response) => {
         const trips = response.data.trips;
         setTrips(trips);
+      })
+      .catch((err) => console.log("err fetching data!!!!", err.message));
+
+    // fetch destinations
+    axios
+      .get("http://localhost:8080/api/trips/dest")
+      .then((res) => {
+        const destinations = res.data.dest;
+        setDest(destinations);
       })
       .catch((err) => console.log("err fetching data!!!!", err.message));
   }, []);
@@ -95,11 +105,15 @@ function App() {
         city: city,
         province: province,
         country: country,
-        photo: photo
+        photo: photo,
       })
       .then((res) => {
-        const dest = res.data.dest[0];
-        console.log('added! dest', dest);
+        const newDest = res.data.dest[0];
+        console.log("added! dest", dest);
+        return newDest;
+      })
+      .then((newDest) => {
+        setDest([...dest, newDest]);
       });
   };
 
@@ -154,7 +168,7 @@ function App() {
         <div className="todo-box">
           <h1 className="title">Upcoming Trips</h1>
           <TripList trips={trips} viewTrip={viewTrip} visible={visible} />
-          <AddTripForm addTrip={addTrip} />
+          <AddTripForm addTrip={addTrip} destinations={dest} />
         </div>
         {visible && (
           <ViewTrip

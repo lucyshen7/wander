@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import "./App.scss";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,7 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
+
 import {
   FormControl,
   InputAdornment,
@@ -17,13 +19,15 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import Select from "@mui/material/Select";
+import axios from "axios";
 
 interface Props {
   addTrip: AddTrip;
+  destinations: Destination[];
 }
 
-export const AddTripForm: React.FC<Props> = ({ addTrip }) => {
-  const [open, setOpen] = React.useState(false);
+export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
+  const [open, setOpen] = useState(false);
 
   const defaultValues = {
     destination: 0,
@@ -61,9 +65,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip }) => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add a Trip</DialogTitle>
         <DialogContent className="dialog-fields">
-          <DialogContentText>
-            Add trip details below.
-          </DialogContentText>
+          <DialogContentText>Add trip details below.</DialogContentText>
           <Box sx={{ minWidth: 120, marginTop: "20px", marginBottom: "5px" }}>
             <FormControl fullWidth>
               <InputLabel id="destination-select-label">Destination</InputLabel>
@@ -78,9 +80,18 @@ export const AddTripForm: React.FC<Props> = ({ addTrip }) => {
                 onChange={handleInputChange}
                 fullWidth
               >
-                <MenuItem value={"1"}>Miami, Florida, USA</MenuItem>
-                <MenuItem value={"2"}>Shinjuku, Tokyo, Japan</MenuItem>
-                <MenuItem value={"3"}>Other</MenuItem>
+                {destinations.map(
+                  (d: {
+                    destination_id: Destination["destination_id"];
+                    city: Destination["city"];
+                    province: Destination["province"];
+                    country: Destination["country"];
+                  }) => (
+                    <MenuItem key={d.destination_id} value={d.destination_id}>
+                      {d.city}, {d.province}, {d.country}
+                    </MenuItem>
+                  )
+                )}
               </Select>
             </FormControl>
           </Box>

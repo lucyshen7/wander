@@ -8,22 +8,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import {
-  FormControl,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
-import Select from "@mui/material/Select";
 
 interface Props {
   addDest: AddDest;
 }
 
 export const AddDestForm: React.FC<Props> = ({ addDest }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const defaultValues = {
     city: "",

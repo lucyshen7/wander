@@ -16,6 +16,20 @@ router.get("/", (req, res) => {
     });
 });
 
+// GET destinations
+router.get("/dest", (req, res) => {
+  tripQueries.getDest()
+    .then((dest) => {
+      console.log('dest', dest);
+      res.json({ dest });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
 // POST to fetch activities
 router.post("/activities", (req, res) => {
   const { tripId } = req.body;
@@ -40,6 +54,22 @@ router.post("/add", (req, res) => {
     .then((trips) => {
       console.log('trips', trips);
       res.json({ trips });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
+// POST to add destination
+router.post("/add/dest", (req, res) => {
+  const { city, province, country, photo } = req.body;
+
+  tripQueries.addDest(city, province, country, photo)
+    .then((dest) => {
+      console.log('dest', dest);
+      res.json({ dest });
     })
     .catch((err) => {
       res
@@ -79,36 +109,6 @@ router.post("/activities/delete", (req, res) => {
         .json({ error: err.message });
     });
 });
-
-// POST to todos table
-// router.post("/", (req, res) => {
-//   const { complete, id } = req.body;
-
-//   todosQueries.updateTodo(complete, id)
-//     .then((response) => {
-//       res.json({ response });
-//     })
-//     .catch((err) => {
-//       res
-//         .status(500)
-//         .json({ error: err.message });
-//     });
-// });
-
-// ADD todo
-// router.post("/add", (req, res) => {
-//   const { text } = req.body;
-
-//   todosQueries.addTodo(text)
-//     .then((response) => {
-//       res.json({ response });
-//     })
-//     .catch((err) => {
-//       res
-//         .status(500)
-//         .json({ error: err.message });
-//     });
-// });
 
 // export router object
 module.exports = router;

@@ -94,7 +94,7 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
             });
             setForecast([...forecast, weatherArr]);
 
-            console.log({forecast});
+            // console.log({forecast});
           }
         );
       })
