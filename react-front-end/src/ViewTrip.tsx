@@ -58,6 +58,7 @@ export const ViewTrip: React.FC<Props> = ({
 
   const [zone, setZone] = useState("");
   const [pop, setPop] = useState(0);
+  const [currency, setCurrency] = useState("");
   const [currentTime, setCurrentTime] = useState("");
   const [cityId, setCityId] = useState(0);
   const [coords, setCoords] = useState({
@@ -205,7 +206,8 @@ export const ViewTrip: React.FC<Props> = ({
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
+        const time = response.data.data;
+        setCurrentTime(time);
       })
       .catch(function (error) {
         console.error(error);
@@ -290,11 +292,11 @@ export const ViewTrip: React.FC<Props> = ({
               color="text.primary"
               gutterBottom
             >
-              <b>Facts</b>
+              <b>City Facts</b>
+              <span>Population: {pop && pop}</span>
               <span>Timezone: {zone && zone}</span>
               <span>Current Time: {currentTime && currentTime}</span>
-              <span>Currency: TBD</span>
-              <span>Population: {pop && pop}</span>
+              <span>Currency: {currency && currency}</span>
             </Typography>
           </CardContent>
         </Card>
