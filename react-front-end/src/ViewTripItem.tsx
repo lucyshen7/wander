@@ -73,7 +73,6 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
       })
       .then((data) => {
         const weatherArr = [] as any;
-
         data.daily.map(
           (x: {
             dt: number;
@@ -93,7 +92,9 @@ export const ViewTripItem: React.FC<Props> = ({ activity, deleteActivity }) => {
               temp: temp,
               weather: x.weather[0].main,
             });
-            setForecast([...forecast, ...weatherArr]);
+            setForecast([...forecast, weatherArr]);
+
+            console.log({forecast});
           }
         );
       })

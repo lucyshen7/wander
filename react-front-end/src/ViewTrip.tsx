@@ -58,7 +58,12 @@ export const ViewTrip: React.FC<Props> = ({
 
   const [zone, setZone] = useState("");
   const [pop, setPop] = useState(0);
-  const [currency, setCurrency] = useState("");
+  const [facts, setFacts] = useState({
+    flag: "",
+    capital: "",
+    currency: "",
+    callingCode: "",
+  });
   const [currentTime, setCurrentTime] = useState("");
   const [cityId, setCityId] = useState(0);
   const [coords, setCoords] = useState({
@@ -171,8 +176,8 @@ export const ViewTrip: React.FC<Props> = ({
                   const pop = res.data.data.population.toLocaleString();
                   setPop(pop);
                 })
-                .catch(function (error) {
-                  console.error(error);
+                .catch((err) => {
+                  console.error(err);
                 });
             });
 
@@ -183,10 +188,8 @@ export const ViewTrip: React.FC<Props> = ({
         `
           )
           .then((res) => {
-            return res.data.timeZoneName;
-          })
-          .then((data) => {
-            setZone(data);
+            const zone = res.data.timeZoneName;
+            setZone(zone);
           });
       })
       .catch((err) => {
@@ -205,12 +208,56 @@ export const ViewTrip: React.FC<Props> = ({
 
     axios
       .request(options)
-      .then(function (response) {
-        const time = response.data.data;
+      .then((res) => {
+        const time = res.data.data.slice(0, 8);
         setCurrentTime(time);
       })
-      .catch(function (error) {
-        console.error(error);
+      .catch((err) => {
+        console.error(err);
+      });
+
+    // get currency using country id
+    axios
+      .get(
+        `https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&format=json&titles=${country}`
+      )
+      .then((res) => {
+        const pageNum = Object.keys(res.data.query.pages).map(
+          (key) => res.data.query.pages[key]
+        );
+        const pageId = pageNum[0].pageid;
+        const countryId = res.data.query.pages[pageId].pageprops.wikibase_item;
+        // console.log({countryId});
+        return countryId;
+      })
+      .then((countryId) => {
+        const currOptions: object = {
+          method: "GET",
+          url: `https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${countryId}`,
+          headers: {
+            "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
+            "X-RapidAPI-Key": `${GEOkey}`,
+          },
+        };
+        axios
+          .request(currOptions)
+          .then((res) => {
+            console.log("res.data", res.data);
+            const cap = res.data.data.capital;
+            const curr = res.data.data.currencyCodes[0];
+            const flag = res.data.data.flagImageUri;
+            const code = res.data.data.callingCode;
+            setFacts({
+              ...facts,
+              capital: cap,
+              currency: curr,
+              callingCode: code,
+              flag: flag,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       });
   }, [city, country, coords.lat, coords.lng]);
 
@@ -293,11 +340,13 @@ export const ViewTrip: React.FC<Props> = ({
               gutterBottom
             >
               <b>Facts</b>
-              <span>{city}, {tripObj && tripObj.province}, {country}</span>
+              <span>
+                {city}, {tripObj && tripObj.province}, {country}
+              </span>
               <span>Population: {pop && pop}</span>
               <span>Timezone: {zone && zone}</span>
               <span>Current Time: {currentTime && currentTime}</span>
-              <span>Currency: {currency && currency}</span>
+              <span>Currency: {facts.currency && facts.currency}</span>
             </Typography>
           </CardContent>
         </Card>
