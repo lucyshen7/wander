@@ -10,7 +10,7 @@ import { AddDestForm } from "./AddDestForm";
 
 const initialTrips: Trip[] = [];
 
-const fakeUser = { name: "Alice" }; // to be replaced
+const fakeUser = { name: "Bob" }; // to be replaced
 
 function App() {
   const [trips, setTrips] = useState(initialTrips);

@@ -57,6 +57,8 @@ export const ViewTrip: React.FC<Props> = ({
     low: 0,
   });
 
+  const [forecast, setForecast] = useState([] as any); // saves an array of objects for 7 day forecast
+
   const [zone, setZone] = useState("");
   const [pop, setPop] = useState(0);
   const [facts, setFacts] = useState({
@@ -115,7 +117,7 @@ export const ViewTrip: React.FC<Props> = ({
   const hotel = tripObj?.hotel_name;
 
   useEffect(() => {
-    axios
+    axios // get daily weather forecast
       .get(
         `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIkey}`
       )
@@ -259,6 +261,47 @@ export const ViewTrip: React.FC<Props> = ({
             console.error(err);
           });
       });
+
+    // fetch forecast for location
+    axios
+      .get(
+        `        
+        https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${APIkey}
+        `
+      )
+      .then((res) => {
+        const result = res.data;
+        return result;
+      })
+      .then((data) => {
+        const weatherArr = [] as any;
+        data.daily.map(
+          (x: {
+            dt: number;
+            temp: { day: number };
+            weather: [{ main: string }];
+          }) => {
+            const date = new Date(x.dt * 1000);
+            const formatted =
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate();
+            const temp = Math.round(x.temp.day - 273.15);
+            weatherArr.push({
+              date: formatted,
+              temp: temp,
+              weather: x.weather[0].main,
+            });
+            setForecast(weatherArr);
+          }
+        );
+      })
+      .catch((err) => {
+        console.log("err fetching weather", err.message);
+      });
+
   }, [city, country, coords.lat, coords.lng]);
 
   const [formValues, setFormValues] = useState(defaultValues);
@@ -401,6 +444,7 @@ export const ViewTrip: React.FC<Props> = ({
             activity={activity}
             deleteActivity={deleteActivity}
             coords={coords}
+            forecast={forecast}
           />
         ))}
       </div>
