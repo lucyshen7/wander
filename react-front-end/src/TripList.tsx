@@ -10,18 +10,7 @@ interface Props {
 
 export const TripList: React.FC<Props> = ({ trips, viewTrip, visible }) => {
   return (
-    <List
-      sx={{
-        width: "100%",
-        maxWidth: "700",
-        height: "50",
-        display: "flex",
-        flexDirection: "column",
-        rowGap: "5px",
-        maxHeight: "60vh",
-        overflow: "auto",
-      }}
-    >
+    <List className="trip-list-box">
       {trips.map((trip) => (
         <TripListItem
           key={trip.trip_id}

@@ -44,7 +44,7 @@ export const AddDestForm: React.FC<Props> = ({ addDest }) => {
 
   return (
     <div className="add-Dest-form">
-      <Button variant="contained" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen} className="btn-grad">
         <AirplanemodeActiveIcon />
         Add Destination
       </Button>{" "}

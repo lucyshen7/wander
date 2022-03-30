@@ -301,7 +301,6 @@ export const ViewTrip: React.FC<Props> = ({
       .catch((err) => {
         console.log("err fetching weather", err.message);
       });
-
   }, [city, country, coords.lat, coords.lng]);
 
   const [formValues, setFormValues] = useState(defaultValues);
@@ -328,10 +327,7 @@ export const ViewTrip: React.FC<Props> = ({
   });
 
   return (
-    <Card
-      sx={{ overflow: "overlay", bgcolor: "rgba(234, 234, 234, 0.726)" }}
-      className="view-trip"
-    >
+    <Card sx={{ overflow: "overlay" }} className="view-trip" id="view-trip">
       <div className="trip-header">
         {tripObj && tripObj.city} Trip Details:
         <Button
@@ -382,7 +378,7 @@ export const ViewTrip: React.FC<Props> = ({
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ width: "30%" }}>
+        <Card variant="outlined" sx={{ width: "30%" }} id="info-card">
           <CardContent>
             <Typography
               className="flex-col"
@@ -423,7 +419,7 @@ export const ViewTrip: React.FC<Props> = ({
         </Card>
       </div>
 
-      <div className="trip-info">
+      <div>
         <Map cityName={city} activities={activities} hotelName={hotel} />
       </div>
 
@@ -454,7 +450,11 @@ export const ViewTrip: React.FC<Props> = ({
       </div>
       <div className="add-activity">
         <div>
-          <Button variant="contained" onClick={handleClickOpen}>
+          <Button
+            variant="contained"
+            onClick={handleClickOpen}
+            className="btn-grad"
+          >
             <AddLocationIcon />
             Add Activity
           </Button>

@@ -1,16 +1,6 @@
 #root {
-  // background-color: #b4a4bb;
   background: #d3cce3; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #e9e4f0,
-    #d3cce3
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #e9e4f0,
-    #d3cce3
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,47 +8,76 @@
   width: auto;
 }
 
-.nav,
-.profile {
+.nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding-left: 15px;
   padding-right: 15px;
   align-items: center;
-  height: 80px;
-  background-color: black;
+  height: 65px;
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
   column-gap: 10px;
-  color: white;
+  color: black;
 }
 
-.profile {
-  padding-right: 0px;
-}
-
-.todo-box {
+.trips-box {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 750px;
+  min-height: 420px;
   margin: auto;
   width: 70%;
+  padding: 15px;
+  border-radius: 3px 3px 3px 3px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+// background colors
+#view-trip,
+.trips-box {
+  background-image: linear-gradient(
+    to top,
+    #dad4ec 0%,
+    #dad4ec 1%,
+    #f3e7e9 100%
+  );
 }
 
 .logo,
 .title {
-  font-family: "Bungee Shade", cursive;
   font-size: 38px;
+  font-family: "Source Sans Pro", sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
 }
 
-.logo {
-  color: white;
+.title {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 30px;
+  color: black;
+  padding-bottom: 10px;
+}
+
+.logo-desc {
+  font-size: 20px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .todo-items,
 .nav,
 .trip-list,
 .view-trip {
-  font-family: "Comfortaa", cursive;
+  font-family: "Lexend Deca", sans-serif;
   font-size: 18px;
 }
 
@@ -71,15 +90,26 @@
   column-gap: 10px;
   width: 95%;
   font-size: 16px;
+  padding: 10px;
+}
+
+.trip-list-box {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
 }
 
 .trip-list-item {
   width: 100%;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
 .trip-photo {
   width: 180px;
   height: auto;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .view-trip {
@@ -92,13 +122,12 @@
   padding-bottom: 20px;
   height: 86%;
   width: 100%;
-  background-color: rgba(234, 234, 234, 0.726);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   overflow: auto;
 }
 
-div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiContainer-root {
+#main-container {
   max-width: none;
   display: flex;
   flex-direction: row;
@@ -171,12 +200,6 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: lightblue;
-}
-
-.hotel-info {
-  background-color: lightpink;
-  max-height: 200px;
 }
 
 .info-box {
@@ -190,7 +213,6 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 }
 
 .trip-info {
-  background: cornsilk;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
@@ -198,7 +220,7 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 
 /* Set the size of the div element that contains the map */
 #map {
-  height: 200px;
+  height: 230px;
   /* The height is 400 pixels */
   width: 100%;
   /* The width is the width of the web page */
@@ -217,8 +239,47 @@ div.MuiContainer-root.MuiContainer-maxWidthLg.main-container.css-1oqqzyl-MuiCont
 .add-forms {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  width: 100%;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 40px;
   margin: auto;
   padding-top: 5px;
+}
+
+.delete-btn {
+  height: 30px;
+}
+
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #4568dc 0%,
+    #b06ab3 51%,
+    #4568dc 100%
+  );
+}
+.btn-grad {
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  column-gap: 10px;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+#info-card {
+  background-color: lightblue;
+  max-height: 60%;
 }

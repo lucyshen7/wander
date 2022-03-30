@@ -56,7 +56,7 @@ export const TripListItem: React.FC<Props> = ({
   return (
     <ListItem
       className="trip-list-item"
-      sx={{ bgcolor: "#eaeaea", borderRadius: 1 }}
+      sx={{ borderRadius: 1 }}
     >
       <div className="trip-list">
         <img src={photo} alt="trip_photo" className="trip-photo" />

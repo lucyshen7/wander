@@ -164,9 +164,9 @@ function App() {
   return (
     <>
       <Navbar user={fakeUser} />
-      <Container className="main-container">
-        <div className="todo-box">
-          <h1 className="title">Upcoming Trips</h1>
+      <Container id="main-container">
+        <div className="trips-box">
+          <div className="title">Upcoming Trips</div>
           <TripList trips={trips} viewTrip={viewTrip} visible={visible} />
           <div className="add-forms">
             <AddDestForm addDest={addDest} />

@@ -58,7 +58,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
 
   return (
     <>
-      <Button variant="contained" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen} className="btn-grad">
         <LuggageIcon />
         Add Trip
       </Button>{" "}
