@@ -138,7 +138,7 @@ export const ViewTrip: React.FC<Props> = ({
   useEffect(() => {
     axios // get daily weather forecast
       .get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIkey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIkey}`
       )
       .then((res) => {
         return res.data;
