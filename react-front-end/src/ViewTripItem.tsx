@@ -1,11 +1,12 @@
 import React from "react";
-import { Button, Card } from "@mui/material";
+import { IconButton, Card } from "@mui/material";
 import "./App.scss";
 import DeleteIcon from "@mui/icons-material/Delete";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import CloudIcon from "@mui/icons-material/Cloud";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import UmbrellaIcon from '@mui/icons-material/Umbrella';
+import UmbrellaIcon from "@mui/icons-material/Umbrella";
 
 interface Props {
   activity: Activity;
@@ -71,37 +72,45 @@ export const ViewTripItem: React.FC<Props> = ({
 
   return (
     <Card className="activity">
-      {(weatherObj && weatherObj.weather) === "Clouds" ? (
-        <CloudIcon />
-      ) : (weatherObj && weatherObj.weather) === "Sun" ? (
-        <WbSunnyIcon />
-      ) : (weatherObj && weatherObj.weather) === "Rain" ? (
-        <UmbrellaIcon />
-      ) : (
-        <ThermostatIcon />
-      )}
-      {weatherObj ? (
-        <span>
-          {weatherObj.temp} °C, {weatherObj.weather}{" "}
+      <div className="activity-item">
+        <span className="activity-forecast">
+          {(weatherObj && weatherObj.weather) === "Clouds" ? (
+            <span>
+              <CloudIcon />{" "}
+            </span>
+          ) : (weatherObj && weatherObj.weather) === "Sun" ? (
+            <WbSunnyIcon />
+          ) : (weatherObj && weatherObj.weather) === "Clear" ? (
+            <WbSunnyIcon />
+          ) : (weatherObj && weatherObj.weather) === "Rain" ? (
+            <UmbrellaIcon />
+          ) : (
+            <ThermostatIcon />
+          )}
+          {weatherObj ? (
+            <span>
+              {weatherObj.temp} °C, {weatherObj.weather}{" "}
+            </span>
+          ) : (
+            <span>n/a</span>
+          )}
         </span>
-      ) : (
-        <span>n/a</span>
-      )}
-      <span>
-        {weekday}, {month}, {day}
-      </span>
-      <span>{activity.activity_name}</span>
-      <span>{activity.type}</span>
-      <span>$ {cost} CAD</span>
-      <Button
-        className="delete-btn"
-        variant="outlined"
-        onClick={() => {
-          deleteActivity(activity.activity_id);
-        }}
-      >
-        <DeleteIcon color="primary" />
-      </Button>
+        <span className="activity-date">
+          {weekday.slice(0, 3)}, {month.slice(0, 3)} {day}
+        </span>
+        <span className="activity-name">{activity.activity_name}</span>
+        <span className="type">{activity.type}</span>
+        <span>$ {cost} CAD</span>
+        <IconButton
+          id="delete-btn"
+          color="error"
+          onClick={() => {
+            deleteActivity(activity.activity_id);
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </div>
     </Card>
   );
 };

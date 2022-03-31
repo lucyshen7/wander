@@ -30,7 +30,7 @@ import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import HotelIcon from "@mui/icons-material/Hotel";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import AirIcon from '@mui/icons-material/Air';
+// import AirIcon from "@mui/icons-material/Air";
 import axios from "axios";
 
 interface Props {
@@ -44,6 +44,10 @@ interface Props {
 
 const APIkey = process.env.REACT_APP_API_KEY;
 const GEOkey = process.env.REACT_APP_GEO_KEY;
+
+const convertDecimal = (num: number) => {
+  return (num / 100).toFixed(2);
+};
 
 export const ViewTrip: React.FC<Props> = ({
   trip,
@@ -362,13 +366,15 @@ export const ViewTrip: React.FC<Props> = ({
                 </div>
                 <div className="info-items">
                   <span>
-                    Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD
+                    Hotel Cost: ${tripObj && convertDecimal(tripObj.hotel_cost)}{" "}
+                    CAD
                   </span>
                   <span>
-                    Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
+                    Flight Cost: $
+                    {tripObj && convertDecimal(tripObj.flight_cost)} CAD
                   </span>
                   <span>Activities Cost: ${total / 100} CAD</span>
-                  <span className="center">
+                  <span className="purple">
                     Total Trip Cost: $
                     {tripObj &&
                       (tripObj.flight_cost + tripObj.hotel_cost + total) /
@@ -393,7 +399,7 @@ export const ViewTrip: React.FC<Props> = ({
               <span>Region: {tripObj && tripObj.province}</span>
               <span>Country: {country}</span>
               {pop > 0 && <span>Population: {pop}</span>}
-              <span className="center">Timezone: {zone && zone}</span>
+              <span className="purple">Timezone: {zone && zone}</span>
               {currentTime && <span>Current Time: {currentTime}</span>}
               {facts.currency && <span>Currency: {facts.currency}</span>}
             </div>
@@ -411,7 +417,7 @@ export const ViewTrip: React.FC<Props> = ({
               <span>Feels Like: {weather.feelsLike} °C</span>
               <span>Low: {weather.low} °C</span>
               <span>High: {weather.high} °C</span>
-              <span className="center">{weather.desc}</span>
+              <span className="purple">{weather.desc}</span>
             </div>
           </CardContent>
         </Card>
@@ -432,15 +438,17 @@ export const ViewTrip: React.FC<Props> = ({
         ) : (
           ""
         )}
-        {activities.map((activity) => (
-          <ViewTripItem
-            key={activity.activity_id}
-            activity={activity}
-            deleteActivity={deleteActivity}
-            coords={coords}
-            forecast={forecast}
-          />
-        ))}
+        <div className="activity-items-container">
+          {activities.map((activity) => (
+            <ViewTripItem
+              key={activity.activity_id}
+              activity={activity}
+              deleteActivity={deleteActivity}
+              coords={coords}
+              forecast={forecast}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="total-cost">
