@@ -336,85 +336,69 @@ export const ViewTrip: React.FC<Props> = ({
           onClick={() => {
             closeView();
           }}
+          className="danger-btn-grad"
         >
           Close
         </Button>
       </div>
 
       <div className="info-box">
-        <Card
-          variant="outlined"
-          sx={{ width: "45%", maxHeight: "200px", overflow: "overlay" }}
-        >
+        <Card sx={{ width: "50%" }} id="info-card">
           <CardContent id="hotel-flight-details">
-            <Typography
-              className="flex-col"
-              sx={{ fontSize: 14 }}
-              color="text.primary"
-              gutterBottom
-            >
-              <span>
-                <b>Trip Summary</b>
-              </span>
-              <span>Hotel Name: {tripObj && tripObj.hotel_name}</span>
-              <span>Hotel Address: {tripObj && tripObj.hotel_address} </span>
-              <span>
-                Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD
-              </span>
-              <span>
-                Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
-              </span>
-              <span>Activities Cost: ${total / 100} CAD</span>
-              <span>
-                <b>
+            <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
+              <div className="info-title">
+                <span>Summary</span>
+              </div>
+              <div className="info-items">
+                <span>
+                  Hotel: {tripObj && tripObj.hotel_name},{" "}
+                  {tripObj && tripObj.hotel_address}{" "}
+                </span>
+                <span>
+                  Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD
+                </span>
+                <span>
+                  Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
+                </span>
+                <span>Activities Cost: ${total / 100} CAD</span>
+                <span>
                   Total Trip Cost: $
                   {tripObj &&
                     (tripObj.flight_cost + tripObj.hotel_cost + total) /
                       100}{" "}
                   CAD
-                </b>
-              </span>
+                </span>
+              </div>
             </Typography>
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ width: "30%" }} id="info-card">
+        <Card sx={{ width: "25%" }} id="info-card">
           <CardContent>
-            <Typography
-              className="flex-col"
-              sx={{ fontSize: 14 }}
-              color="text.primary"
-              gutterBottom
-            >
-              <b>City Facts</b>
-              <span>
-                {city}, {tripObj && tripObj.province}, {country}
-              </span>
+            {" "}
+            <div className="info-title">City Facts</div>
+            <div className="info-items">
+              <span>City: {city}</span>
+              <span>State/Province: {tripObj && tripObj.province}</span>
+              <span>Country: {country}</span>
               {pop > 0 && <span>Population: {pop}</span>}
               <span>Timezone: {zone && zone}</span>
               {currentTime && <span>Current Time: {currentTime}</span>}
               {facts.currency && <span>Currency: {facts.currency}</span>}
-            </Typography>
+            </div>
           </CardContent>
         </Card>
 
-        <Card variant="outlined" sx={{ display: "flex", width: "25%" }}>
+        <Card sx={{ width: "25%" }} id="info-card">
           <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-              <b>Current Weather</b>
-            </Typography>
-            <Typography
-              className="flex-col"
-              sx={{ fontSize: 14 }}
-              color="text.primary"
-              gutterBottom
-            >
+            <div className="info-title">Current Weather</div>
+            <div className="info-items">
               <span>Actual: {weather.temp} °C</span>
               <span>Feels Like: {weather.feelsLike} °C</span>
               <span>Low: {weather.low} °C</span>
               <span>High: {weather.high} °C</span>
               <span>{weather.desc}</span>
-            </Typography>
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -427,7 +411,7 @@ export const ViewTrip: React.FC<Props> = ({
         My Activities:
         {activities.length === 0 ? (
           <div className="alert-msg">
-            <Alert severity="info" sx={{ fontFamily: "Comfortaa" }}>
+            <Alert severity="info">
               You have no activities! Add an activity below.
             </Alert>
           </div>

@@ -12,9 +12,11 @@ export const TotalCost: React.FC<Props> = ({ activities }) => {
     total += a.cost;
   });
 
+  let newTotal = (Number(total) / 100).toFixed(2);
+
   return (
     <div className="total-cost">
-      Total Cost: $ {total / 100} CAD
+      Total Cost: $ {newTotal} CAD
     </div>
   );
 };

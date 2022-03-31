@@ -60,10 +60,10 @@ export const TripListItem: React.FC<Props> = ({
     >
       <div className="trip-list">
         <img src={photo} alt="trip_photo" className="trip-photo" />
-        <span>
+        <span className="trip-col">
           {city}, {province}, {country}
         </span>
-        <span>
+        <span className="trip-col">
           {month1}, {day1} - {month2}, {day2}
         </span>
         <Button
@@ -72,9 +72,10 @@ export const TripListItem: React.FC<Props> = ({
             viewTrip(id);
           }}
           disabled={visible}
+          className="view-btn"
         >
           View
-          <SavedSearchIcon />
+          <SavedSearchIcon sx={{ margin: "-5px" }}/>
         </Button>
       </div>
     </ListItem>

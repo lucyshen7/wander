@@ -16,9 +16,8 @@
   padding-right: 15px;
   align-items: center;
   height: 65px;
-  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
-  column-gap: 10px;
-  color: black;
+  color: white;
+  background-image: linear-gradient(-20deg, #6e45e2 0%, #88d3ce 100%);
 }
 
 .trips-box {
@@ -28,7 +27,7 @@
   max-width: 750px;
   min-height: 420px;
   margin: auto;
-  width: 70%;
+  width: 60%;
   padding: 15px;
   border-radius: 3px 3px 3px 3px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -45,10 +44,15 @@
   );
 }
 
+#view-trip {
+  min-width: 50%;
+}
+
 .logo,
 .title {
   font-size: 38px;
-  font-family: "Source Sans Pro", sans-serif;
+  // font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Pacifico', cursive;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -57,13 +61,14 @@
 
 .title {
   font-family: "Source Sans Pro", sans-serif;
-  font-size: 30px;
+  font-size: 26px;
   color: black;
   padding-bottom: 10px;
 }
 
 .logo-desc {
   font-size: 20px;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .flex-row {
@@ -84,13 +89,14 @@
 .trip-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   margin: auto;
-  column-gap: 10px;
-  width: 95%;
+  column-gap: 15px;
+  width: 100%;
   font-size: 16px;
-  padding: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .trip-list-box {
@@ -99,15 +105,18 @@
   display: flex;
   flex-direction: column;
   row-gap: 5px;
+  max-height: 280px;
+  overflow: auto;
 }
 
 .trip-list-item {
   width: 100%;
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
 .trip-photo {
   width: 180px;
+  max-width: 40%;
   height: auto;
   border-radius: 5px 5px 5px 5px;
 }
@@ -118,13 +127,13 @@
   margin: auto;
   padding-left: 30px;
   padding-right: 30px;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 20px;
   height: 86%;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  overflow: auto;
+  overflow: overlay;
 }
 
 #main-container {
@@ -157,7 +166,7 @@
 }
 
 .activity {
-  background-color: rgb(163 163 163);
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -167,6 +176,7 @@
   align-items: center;
   align-content: flex-start;
   font-size: medium;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .add-activity-btn {
@@ -196,12 +206,6 @@
   width: 48%;
 }
 
-.weather {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .info-box {
   display: flex;
   flex-direction: row;
@@ -210,6 +214,7 @@
   column-gap: 10px;
   width: 100%;
   padding-bottom: 10px;
+  max-height: 180px;
 }
 
 .trip-info {
@@ -220,7 +225,7 @@
 
 /* Set the size of the div element that contains the map */
 #map {
-  height: 230px;
+  height: 220px;
   /* The height is 400 pixels */
   width: 100%;
   /* The width is the width of the web page */
@@ -279,7 +284,64 @@
   text-decoration: none;
 }
 
+.view-btn {
+  column-gap: 5px;
+  padding: 2px;
+}
+
 #info-card {
-  background-color: lightblue;
-  max-height: 60%;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  overflow: overlay;
+}
+
+.danger-btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #d31027 0%,
+    #ea384d 51%,
+    #d31027 100%
+  );
+}
+.danger-btn-grad {
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.danger-btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.info-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  max-height: 50px;
+}
+
+.info-items {
+  font-size: 14px;
+  font-family: 'Lexend Deca', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 2px;
+  padding-top: 10px;
+}
+
+.trip-col {
+  max-width: 150px;
 }
