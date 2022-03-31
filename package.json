@@ -1,0 +1,25 @@
+{
+  "name": "wander",
+  "version": "1.0.0",
+  "description": "a travel itinerary app",
+  "main": "index.js",
+  "dependencies": {
+    "-": "^0.0.1",
+    "gh-pages": "^3.2.3",
+    "save-dev": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucyshen7/wander.git"
+  },
+  "author": "Lucy Shen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucyshen7/wander/issues"
+  },
+  "homepage": "https://github.com/lucyshen7/wander#readme"
+}
