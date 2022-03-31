@@ -2,7 +2,7 @@ import React from "react";
 import { IconButton, Card } from "@mui/material";
 import "./App.scss";
 import DeleteIcon from "@mui/icons-material/Delete";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+// import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import CloudIcon from "@mui/icons-material/Cloud";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -99,7 +99,9 @@ export const ViewTripItem: React.FC<Props> = ({
           {weekday.slice(0, 3)}, {month.slice(0, 3)} {day}
         </span>
         <span className="activity-name">{activity.activity_name}</span>
-        <span className="type">{activity.type}</span>
+        <span className="activity-type">
+          <span className="type">{activity.type}</span>
+        </span>
         <span>$ {cost} CAD</span>
         <IconButton
           id="delete-btn"

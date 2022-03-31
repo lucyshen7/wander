@@ -390,7 +390,7 @@
   align-content: center;
   align-items: center;
   column-gap: 10px;
-  width: 150px;
+  width: 20%;
 }
 
 .activity-date {
@@ -401,5 +401,9 @@
 }
 
 .activity-name {
-  width: 250px;
+  width: 200px;
+}
+
+.activity-type {
+  width: 100px;
 }

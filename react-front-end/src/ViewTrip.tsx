@@ -49,6 +49,16 @@ const convertDecimal = (num: number) => {
   return (num / 100).toFixed(2);
 };
 
+const types = [
+  "Entertainment",
+  "Food",
+  "Museum",
+  "Park",
+  "Transportation",
+  "Worship",
+  "Other",
+];
+
 export const ViewTrip: React.FC<Props> = ({
   trip,
   closeView,
@@ -521,12 +531,9 @@ export const ViewTrip: React.FC<Props> = ({
                     onChange={handleInputChange}
                     fullWidth
                   >
-                    <MenuItem value={"Food"}>Food</MenuItem>
-                    <MenuItem value={"Museum"}>Museum</MenuItem>
-                    <MenuItem value={"Park"}>Park</MenuItem>
-                    <MenuItem value={"Transportation"}>Entertainment</MenuItem>
-                    <MenuItem value={"Transportation"}>Transportation</MenuItem>
-                    <MenuItem value={"Other"}>Other</MenuItem>
+                    {types.map((type) => (
+                      <MenuItem value={type}>{type}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Box>
