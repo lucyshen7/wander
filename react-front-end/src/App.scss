@@ -17,7 +17,6 @@
   align-items: center;
   height: 65px;
   color: white;
-  background-image: linear-gradient(-20deg, #6e45e2 0%, #88d3ce 100%);
 }
 
 .trips-box {
@@ -52,7 +51,7 @@
 .title {
   font-size: 38px;
   // font-family: "Source Sans Pro", sans-serif;
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -256,12 +255,11 @@
   height: 30px;
 }
 
-.btn-grad {
+.btn-grad, .nav {
   background-image: linear-gradient(
     to right,
     #4568dc 0%,
-    #b06ab3 51%,
-    #4568dc 100%
+    #b06ab3 60%
   );
 }
 .btn-grad {
@@ -327,14 +325,14 @@
   flex-direction: row;
   justify-content: center;
   font-size: 16px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   max-height: 50px;
 }
 
 .info-items {
   font-size: 14px;
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: "Lexend Deca", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

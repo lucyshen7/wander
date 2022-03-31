@@ -15,7 +15,7 @@ export const Navbar: React.FC<Props> = ({ user }) => {
       </span>
       <div className="flex-row">
         <span>Logged in as {user.name}!</span>
-        <Button variant="contained" className="danger-btn-grad">
+        <Button variant="contained">
           Logout
         </Button>
       </div>
