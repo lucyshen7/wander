@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import CloudIcon from "@mui/icons-material/Cloud";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import UmbrellaIcon from '@mui/icons-material/Umbrella';
 
 interface Props {
   activity: Activity;
@@ -70,10 +71,12 @@ export const ViewTripItem: React.FC<Props> = ({
 
   return (
     <Card className="activity">
-      {(weatherObj && weatherObj.weather) === ("Clouds" || "Rain") ? (
+      {(weatherObj && weatherObj.weather) === "Clouds" ? (
         <CloudIcon />
       ) : (weatherObj && weatherObj.weather) === "Sun" ? (
         <WbSunnyIcon />
+      ) : (weatherObj && weatherObj.weather) === "Rain" ? (
+        <UmbrellaIcon />
       ) : (
         <ThermostatIcon />
       )}

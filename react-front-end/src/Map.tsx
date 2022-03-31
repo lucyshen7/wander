@@ -1,8 +1,8 @@
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import Geocode from "react-geocode";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
+import Geocode from "react-geocode";
 const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
 Geocode.setApiKey(`${mapAPIkey}`);
 

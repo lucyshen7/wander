@@ -26,6 +26,11 @@ import {
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import HotelIcon from "@mui/icons-material/Hotel";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import AirIcon from '@mui/icons-material/Air';
 import axios from "axios";
 
 interface Props {
@@ -265,9 +270,7 @@ export const ViewTrip: React.FC<Props> = ({
     // fetch forecast for location
     axios
       .get(
-        `        
-        https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${APIkey}
-        `
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${APIkey}`
       )
       .then((res) => {
         const result = res.data;
@@ -347,27 +350,32 @@ export const ViewTrip: React.FC<Props> = ({
           <CardContent id="hotel-flight-details">
             <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
               <div className="info-title">
-                <span>Summary</span>
+                <HotelIcon />
+                Hotel Info
               </div>
               <div className="info-items">
-                <span>
-                  Hotel: {tripObj && tripObj.hotel_name},{" "}
-                  {tripObj && tripObj.hotel_address}{" "}
-                </span>
-                <span>
-                  Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD
-                </span>
-                <span>
-                  Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
-                </span>
-                <span>Activities Cost: ${total / 100} CAD</span>
-                <span>
-                  Total Trip Cost: $
-                  {tripObj &&
-                    (tripObj.flight_cost + tripObj.hotel_cost + total) /
-                      100}{" "}
-                  CAD
-                </span>
+                <span>Name: {tripObj && tripObj.hotel_name} </span>
+                <span>Address: {tripObj && tripObj.hotel_address} </span>
+                <div className="info-title">
+                  <MonetizationOnIcon />
+                  Expenses
+                </div>
+                <div className="info-items">
+                  <span>
+                    Hotel Cost: ${tripObj && tripObj.hotel_cost / 100} CAD
+                  </span>
+                  <span>
+                    Flight Cost: ${tripObj && tripObj.flight_cost / 100} CAD
+                  </span>
+                  <span>Activities Cost: ${total / 100} CAD</span>
+                  <span className="center">
+                    Total Trip Cost: $
+                    {tripObj &&
+                      (tripObj.flight_cost + tripObj.hotel_cost + total) /
+                        100}{" "}
+                    CAD
+                  </span>
+                </div>
               </div>
             </Typography>
           </CardContent>
@@ -376,13 +384,16 @@ export const ViewTrip: React.FC<Props> = ({
         <Card sx={{ width: "25%" }} id="info-card">
           <CardContent>
             {" "}
-            <div className="info-title">City Facts</div>
+            <div className="info-title">
+              <LocationCityIcon />
+              City Facts
+            </div>
             <div className="info-items">
               <span>City: {city}</span>
-              <span>State/Province: {tripObj && tripObj.province}</span>
+              <span>Region: {tripObj && tripObj.province}</span>
               <span>Country: {country}</span>
               {pop > 0 && <span>Population: {pop}</span>}
-              <span>Timezone: {zone && zone}</span>
+              <span className="center">Timezone: {zone && zone}</span>
               {currentTime && <span>Current Time: {currentTime}</span>}
               {facts.currency && <span>Currency: {facts.currency}</span>}
             </div>
@@ -391,13 +402,16 @@ export const ViewTrip: React.FC<Props> = ({
 
         <Card sx={{ width: "25%" }} id="info-card">
           <CardContent>
-            <div className="info-title">Current Weather</div>
+            <div className="info-title">
+              <WbSunnyIcon />
+              Current Weather
+            </div>
             <div className="info-items">
               <span>Actual: {weather.temp} °C</span>
               <span>Feels Like: {weather.feelsLike} °C</span>
               <span>Low: {weather.low} °C</span>
               <span>High: {weather.high} °C</span>
-              <span>{weather.desc}</span>
+              <span className="center">{weather.desc}</span>
             </div>
           </CardContent>
         </Card>

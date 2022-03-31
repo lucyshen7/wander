@@ -109,7 +109,7 @@ function App() {
       })
       .then((res) => {
         const newDest = res.data.dest[0];
-        console.log("added! dest", dest);
+        // console.log("added! dest", dest);
         return newDest;
       })
       .then((newDest) => {
@@ -166,7 +166,7 @@ function App() {
       <Navbar user={fakeUser} />
       <Container id="main-container">
         <div className="trips-box">
-          <div className="title">Upcoming Trips</div>
+          <div className="title">My Trips</div>
           <TripList trips={trips} viewTrip={viewTrip} visible={visible} />
           <div className="add-forms">
             <AddDestForm addDest={addDest} />
