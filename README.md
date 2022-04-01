@@ -13,3 +13,7 @@ Features:
 ### View Trip Details GIF
 
 !["Gif of view trip details"](/docs/view-trip.gif)
+
+### Add an Activity GIF
+
+!["Gif of add activity"](/docs/add-activity.gif)
