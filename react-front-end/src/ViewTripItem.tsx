@@ -57,7 +57,7 @@ export const ViewTripItem: React.FC<Props> = ({
 }) => {
   const date = new Date(activity.date);
   const month = months[date.getMonth()];
-  const day = date.getDate();
+  const day = date.getDate() + 1; // adjust date
   const weekday = days[date.getDay()];
 
   const cost = (activity.cost / 100).toFixed(2);

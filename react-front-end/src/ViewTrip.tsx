@@ -532,7 +532,7 @@ export const ViewTrip: React.FC<Props> = ({
                     fullWidth
                   >
                     {types.map((type) => (
-                      <MenuItem value={type}>{type}</MenuItem>
+                      <MenuItem key={type} value={type}>{type}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
