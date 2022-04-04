@@ -65,6 +65,7 @@ export const AddDestForm: React.FC<Props> = ({ addDest }) => {
             value={formValues.city}
             onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            required
           />
           <TextField
             autoFocus
@@ -77,6 +78,7 @@ export const AddDestForm: React.FC<Props> = ({ addDest }) => {
             value={formValues.province}
             onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            required
           />
           <TextField
             autoFocus
@@ -89,6 +91,7 @@ export const AddDestForm: React.FC<Props> = ({ addDest }) => {
             value={formValues.country}
             onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            required
           />
           <TextField
             autoFocus
@@ -101,6 +104,7 @@ export const AddDestForm: React.FC<Props> = ({ addDest }) => {
             value={formValues.photo}
             onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            required
           />
         </DialogContent>
         <DialogActions>

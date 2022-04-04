@@ -58,7 +58,11 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
 
   return (
     <>
-      <Button variant="contained" onClick={handleClickOpen} className="btn-grad">
+      <Button
+        variant="contained"
+        onClick={handleClickOpen}
+        className="btn-grad"
+      >
         <LuggageIcon />
         Add Trip
       </Button>{" "}
@@ -68,7 +72,9 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
           <DialogContentText>Add trip details below.</DialogContentText>
           <Box sx={{ minWidth: 120, marginTop: "20px", marginBottom: "5px" }}>
             <FormControl fullWidth>
-              <InputLabel id="destination-select-label">Destination</InputLabel>
+              <InputLabel id="destination-select-label" required>
+                Destination
+              </InputLabel>
               <Select
                 autoFocus
                 margin="dense"
@@ -79,6 +85,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
                 label="Destination"
                 onChange={handleInputChange}
                 fullWidth
+                required
               >
                 {destinations.map(
                   (d: {
@@ -106,6 +113,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
             value={formValues.hotelName}
             onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            required
           />
           <TextField
             autoFocus
@@ -118,6 +126,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
             value={formValues.hotelAddress}
             onChange={handleInputChange}
             InputLabelProps={{ shrink: true }}
+            required
           />
           <div className="two-fields-form">
             <FormControl className="two-fields">
@@ -132,6 +141,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
                 value={formValues.startDate}
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
+                required
               />
             </FormControl>
             <FormControl className="two-fields">
@@ -147,12 +157,13 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
                 value={formValues.endDate}
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
+                required
               />
             </FormControl>
           </div>
           <div className="two-fields-form">
             <FormControl className="two-fields" sx={{ marginTop: "10px" }}>
-              <InputLabel htmlFor="outlined-adornment-cost">
+              <InputLabel htmlFor="outlined-adornment-cost" required>
                 Flight Cost
               </InputLabel>
               <OutlinedInput
@@ -164,10 +175,11 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
                   <InputAdornment position="start">$</InputAdornment>
                 }
                 label="Flight Cost"
+                required
               />
             </FormControl>
             <FormControl className="two-fields" sx={{ marginTop: "10px" }}>
-              <InputLabel htmlFor="outlined-adornment-cost">
+              <InputLabel htmlFor="outlined-adornment-cost" required>
                 Hotel Cost
               </InputLabel>
               <OutlinedInput
@@ -179,6 +191,7 @@ export const AddTripForm: React.FC<Props> = ({ addTrip, destinations }) => {
                   <InputAdornment position="start">$</InputAdornment>
                 }
                 label="Hotel Cost"
+                required
               />
             </FormControl>
           </div>

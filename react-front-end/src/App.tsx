@@ -43,6 +43,12 @@ function App() {
     }
   };
 
+  const addCoordinates = async (a: Activity) => {
+    a.lat = await getLat(a.activity_address);
+    a.lng = await getLng(a.activity_address);
+    return a;
+  };
+
   useEffect(() => {
     // fetch trips
     axios
@@ -63,17 +69,13 @@ function App() {
       .catch((err) => console.log("err fetching data!!!!", err.message));
   }, []);
 
+  // view trip & get activities for trip
   const viewTrip = (id: Trip["trip_id"]) => {
     axios
       .post("http://localhost:8080/api/trips/activities", { tripId: id })
       .then((response) => {
         const activities = response.data.activities;
         activities.map((activity: any) => {
-          const addCoordinates = async (a: Activity) => {
-            a.lat = await getLat(a.activity_address);
-            a.lng = await getLng(a.activity_address);
-            return a;
-          };
           addCoordinates(activity);
         });
         setActivities(activities);
@@ -168,6 +170,7 @@ function App() {
       })
       .then((res) => {
         const newActivity = res.data.activities[0];
+        addCoordinates(newActivity);
         return newActivity;
       })
       .then((newActivity) => {

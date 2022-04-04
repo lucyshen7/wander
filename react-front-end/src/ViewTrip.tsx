@@ -399,6 +399,7 @@ export const ViewTrip: React.FC<Props> = ({
                 value={formValues.date}
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
+                required
               />
               <TextField
                 autoFocus
@@ -411,6 +412,7 @@ export const ViewTrip: React.FC<Props> = ({
                 value={formValues.activityName}
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
+                required
               />
               <TextField
                 autoFocus
@@ -423,10 +425,11 @@ export const ViewTrip: React.FC<Props> = ({
                 value={formValues.activityAddress}
                 onChange={handleInputChange}
                 InputLabelProps={{ shrink: true }}
+                required
               />
               <Box sx={{ minWidth: 120, marginTop: "10px" }}>
                 <FormControl fullWidth>
-                  <InputLabel id="type-select-label">Activity Type</InputLabel>
+                  <InputLabel id="type-select-label" required>Activity Type</InputLabel>
                   <Select
                     autoFocus
                     margin="dense"
@@ -437,6 +440,7 @@ export const ViewTrip: React.FC<Props> = ({
                     label="Activity Type"
                     onChange={handleInputChange}
                     fullWidth
+                    required
                   >
                     {types.map((type) => (
                       <MenuItem key={type} value={type}>
@@ -448,7 +452,9 @@ export const ViewTrip: React.FC<Props> = ({
               </Box>
 
               <FormControl fullWidth sx={{ marginTop: "10px" }}>
-                <InputLabel htmlFor="outlined-adornment-cost">Cost</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-cost">
+                  Cost
+                </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-cost"
                   value={formValues.cost}
@@ -458,6 +464,7 @@ export const ViewTrip: React.FC<Props> = ({
                     <InputAdornment position="start">$</InputAdornment>
                   }
                   label="Cost"
+                  required
                 />
               </FormControl>
             </DialogContent>

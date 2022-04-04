@@ -56,7 +56,7 @@ export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
       });
     };
     showCity(cityName);
-  }, [activities, hotelName, cityName]);
+  }, [hotelName, cityName]);
 
   const containerStyle = {
     width: "100%",
@@ -73,7 +73,7 @@ export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
   return (
     <div id="map">
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-        {activities && activities.map((activity) => (
+        {activities.map((activity) => (
           <Marker
             key={activity.activity_id}
             position={{ lat: activity.lat, lng: activity.lng }}
