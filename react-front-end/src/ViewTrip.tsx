@@ -40,10 +40,14 @@ interface Props {
   addActivity: AddActivity;
   deleteActivity: DeleteActivity;
   trips: Trip[];
+  setActivities: Function;
 }
 
-const APIkey = process.env.REACT_APP_API_KEY;
-const GEOkey = process.env.REACT_APP_GEO_KEY;
+const weatherAPIkey = process.env.REACT_APP_WEATHER_API_KEY;
+const mapAPIkey = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
+const geoAPIkey = process.env.REACT_APP_GEOCODE_API_KEY;
+
+Geocode.setApiKey(`${mapAPIkey}`);
 
 const convertDecimal = (num: number) => {
   return (num / 100).toFixed(2);
@@ -66,6 +70,7 @@ export const ViewTrip: React.FC<Props> = ({
   addActivity,
   deleteActivity,
   trips,
+  setActivities,
 }) => {
   const [open, setOpen] = React.useState(false);
   const [weather, setWeather] = React.useState({
@@ -79,22 +84,11 @@ export const ViewTrip: React.FC<Props> = ({
   const [forecast, setForecast] = useState([] as any); // saves an array of objects for 7 day forecast
 
   const [zone, setZone] = useState("");
-  const [pop, setPop] = useState(0);
-  const [facts, setFacts] = useState({
-    flag: "",
-    capital: "",
-    currency: "",
-    callingCode: "",
-  });
-  const [currentTime, setCurrentTime] = useState("");
   const [cityId, setCityId] = useState(0);
   const [coords, setCoords] = useState({
     lat: 0,
     lng: 0,
   });
-
-  const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
-  Geocode.setApiKey(`${mapAPIkey}`);
 
   const getLat = async (address: string) => {
     try {
@@ -138,7 +132,7 @@ export const ViewTrip: React.FC<Props> = ({
   useEffect(() => {
     axios // get daily weather forecast
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${APIkey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${weatherAPIkey}`
       )
       .then((res) => {
         return res.data;
@@ -167,7 +161,6 @@ export const ViewTrip: React.FC<Props> = ({
           });
         };
         city && getGeocode(city);
-
         city &&
           axios
             .get(
@@ -182,25 +175,6 @@ export const ViewTrip: React.FC<Props> = ({
                 res.data.query.pages[pageId].pageprops.wikibase_item;
               setCityId(cityId);
               return cityId;
-            })
-            .then((cityId) => {
-              const options: object = {
-                method: "GET",
-                url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${cityId}`,
-                headers: {
-                  "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-                  "X-RapidAPI-Key": `${GEOkey}`,
-                },
-              };
-              axios
-                .request(options)
-                .then((res) => {
-                  const pop = res.data.data.population.toLocaleString();
-                  setPop(pop);
-                })
-                .catch((err) => {
-                  console.error(err);
-                });
             });
 
         axios
@@ -217,74 +191,10 @@ export const ViewTrip: React.FC<Props> = ({
       .catch((err) => {
         console.log("err fetching weather", err.message);
       });
-
-    // get current time
-    const options: object = {
-      method: "GET",
-      url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${cityId}/time`,
-      headers: {
-        "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-        "X-RapidAPI-Key": `${GEOkey}`,
-      },
-    };
-
-    axios
-      .request(options)
-      .then((res) => {
-        const time = res.data.data.slice(0, 8);
-        setCurrentTime(time);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-    // get currency using country id
-    axios
-      .get(
-        `https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&format=json&titles=${country}`
-      )
-      .then((res) => {
-        const pageNum = Object.keys(res.data.query.pages).map(
-          (key) => res.data.query.pages[key]
-        );
-        const pageId = pageNum[0].pageid;
-        const countryId = res.data.query.pages[pageId].pageprops.wikibase_item;
-        return countryId;
-      })
-      .then((countryId) => {
-        const currOptions: object = {
-          method: "GET",
-          url: `https://wft-geo-db.p.rapidapi.com/v1/geo/countries/${countryId}`,
-          headers: {
-            "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
-            "X-RapidAPI-Key": `${GEOkey}`,
-          },
-        };
-        axios
-          .request(currOptions)
-          .then((res) => {
-            console.log("res.data", res.data);
-            const cap = res.data.data.capital;
-            const curr = res.data.data.currencyCodes[0];
-            const flag = res.data.data.flagImageUri;
-            const code = res.data.data.callingCode;
-            setFacts({
-              ...facts,
-              capital: cap,
-              currency: curr,
-              callingCode: code,
-              flag: flag,
-            });
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      });
-
     // fetch forecast for location
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${APIkey}`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&appid=${weatherAPIkey}`
       )
       .then((res) => {
         const result = res.data;
@@ -408,10 +318,7 @@ export const ViewTrip: React.FC<Props> = ({
               <span>City: {city}</span>
               <span>Region: {tripObj && tripObj.province}</span>
               <span>Country: {country}</span>
-              {pop > 0 && <span>Population: {pop}</span>}
               <span className="purple">Timezone: {zone && zone}</span>
-              {currentTime && <span>Current Time: {currentTime}</span>}
-              {facts.currency && <span>Currency: {facts.currency}</span>}
             </div>
           </CardContent>
         </Card>
@@ -532,7 +439,9 @@ export const ViewTrip: React.FC<Props> = ({
                     fullWidth
                   >
                     {types.map((type) => (
-                      <MenuItem key={type} value={type}>{type}</MenuItem>
+                      <MenuItem key={type} value={type}>
+                        {type}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>

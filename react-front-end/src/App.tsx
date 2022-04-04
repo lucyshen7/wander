@@ -8,6 +8,10 @@ import { ViewTrip } from "./ViewTrip";
 import { AddTripForm } from "./AddTripForm";
 import { AddDestForm } from "./AddDestForm";
 
+import Geocode from "react-geocode";
+const mapAPIkey = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
+Geocode.setApiKey(`${mapAPIkey}`);
+
 const initialTrips: Trip[] = [];
 
 const fakeUser = { name: "Bob" }; // to be replaced
@@ -18,6 +22,26 @@ function App() {
   const [selectedTrip, setSelectedTrip] = useState(0);
   const [activities, setActivities] = useState([] as any);
   const [dest, setDest] = useState([] as any);
+
+  const getLat = async (address: string) => {
+    try {
+      const response = await Geocode.fromAddress(address);
+      const { lat } = response.results[0].geometry.location;
+      return lat;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  const getLng = async (address: string) => {
+    try {
+      const response = await Geocode.fromAddress(address);
+      const { lng } = response.results[0].geometry.location;
+      return lng;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
 
   useEffect(() => {
     // fetch trips
@@ -44,6 +68,14 @@ function App() {
       .post("http://localhost:8080/api/trips/activities", { tripId: id })
       .then((response) => {
         const activities = response.data.activities;
+        activities.map((activity: any) => {
+          const addCoordinates = async (a: Activity) => {
+            a.lat = await getLat(a.activity_address);
+            a.lng = await getLng(a.activity_address);
+            return a;
+          };
+          addCoordinates(activity);
+        });
         setActivities(activities);
         setSelectedTrip(id);
         setVisible(true);
@@ -153,11 +185,10 @@ function App() {
         return deletedId;
       })
       .then((deletedId) => {
-        const findId = (element: any) => element.activity_id === deletedId;
-        const index = activities.findIndex(findId);
-        const newArray = [...activities];
-        newArray.splice(index, 1);
-        setActivities(newArray);
+        const newArr = activities.filter(
+          (activity: any) => activity.activity_id !== deletedId
+        );
+        setActivities(newArr);
       });
   };
 
@@ -181,6 +212,7 @@ function App() {
             addActivity={addActivity}
             deleteActivity={deleteActivity}
             trips={trips}
+            setActivities={setActivities}
           />
         )}
       </Container>

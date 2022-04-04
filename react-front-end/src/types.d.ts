@@ -28,6 +28,8 @@ interface Activity {
   country: text;
   hotel_name: text;
   hotel_address: text;
+  lat: number;
+  lng: number;
 }
 
 interface Destination {
