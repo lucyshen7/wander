@@ -13,6 +13,7 @@ interface Props {
 }
 
 export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
+  const [markers, setMarkers] = useState([{ address: "", lat: 0, lng: 0 }]);
   const [city, setCity] = useState({ lat: 0, lng: 0 });
   const [hotel, setHotel] = useState({ lat: 0, lng: 0 });
 
@@ -40,13 +41,30 @@ export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
     }
   };
 
+  const showMarker = async (address: string) => {
+    setMarkers([
+      ...markers,
+      {
+        address: address,
+        lat: await getLat(address),
+        lng: await getLng(address),
+      },
+    ]);
+  };
+
   useEffect(() => {
+    activities &&
+      activities.map((activity) => {
+        showMarker(activity.activity_address);
+      });
+
     const showHotel = async (location: string) => {
       setHotel({
         lat: await getLat(location),
         lng: await getLng(location),
       });
     };
+
     hotelName && showHotel(hotelName);
 
     const showCity = async (location: string) => {
@@ -56,7 +74,7 @@ export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
       });
     };
     showCity(cityName);
-  }, [hotelName, cityName]);
+  }, [activities, hotelName, cityName]);
 
   const containerStyle = {
     width: "100%",
@@ -73,10 +91,10 @@ export const Map: React.FC<Props> = ({ cityName, activities, hotelName }) => {
   return (
     <div id="map">
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-        {activities.map((activity) => (
+        {markers.map((marker) => (
           <Marker
-            key={activity.activity_id}
-            position={{ lat: activity.lat, lng: activity.lng }}
+            key={marker.lat}
+            position={{ lat: marker.lat, lng: marker.lng }}
           ></Marker>
         ))}
         <Marker position={{ lat: hotel.lat, lng: hotel.lng }}></Marker>

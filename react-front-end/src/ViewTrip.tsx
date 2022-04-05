@@ -228,7 +228,7 @@ export const ViewTrip: React.FC<Props> = ({
       .catch((err) => {
         console.log("err fetching weather", err.message);
       });
-  }, [city, country, coords.lat, coords.lng]);
+  }, [activities, city, country, coords.lat, coords.lng]);
 
   const [formValues, setFormValues] = useState(defaultValues);
 
